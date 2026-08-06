@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================
+     SEO — REPLACE: your real domain in all five places below,
+     and drop a 1200x630 preview.png in the site root.
+     ============================================================ -->
+<title>Peter Fasae — Software Engineer, London</title>
+<meta name="description" content="Peter Fasae is a full stack software engineer in London working in TypeScript, React and Node. Selected work: performance rewrites, billing APIs, and products built for real users.">
+<link rel="canonical" href="https://peterfasae.dev/">
+<meta name="author" content="Peter Fasae">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Peter Fasae — Software Engineer, London">
+<meta property="og:description" content="Full stack engineer. I make slow things fast and fragile things dependable.">
+<meta property="og:url" content="https://peterfasae.dev/">
+<meta property="og:image" content="https://peterfasae.dev/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#EFEFEC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131416" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23141618'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' fill='%23EFEFEC' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Peter Fasae",
+  "jobTitle": "Software Engineer",
+  "url": "https://peterfasae.dev/",
+  "email": "mailto:pfasae@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB" },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Middlesex University" },
+    { "@type": "EducationalOrganization", "name": "Aptech Computer Education" }
+  ],
+  "knowsAbout": ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "AWS", "Testing"],
+  "sameAs": ["https://github.com/PeterFasae", "https://www.linkedin.com/in/peter-fasae-5a7482b8/"]
+}
+</script>
+
+<script>document.documentElement.classList.add('js');</script>
+
+<style>
+/* ============================================================
+   1. TOKENS
+   Cool slate paper, graphite ink, one oxblood accent.
+   Change --accent once and the whole site follows.
+   ============================================================ */
+:root {
+  --paper:      #EFEFEC;
+  --field:      #E7E7E2;
+  --ink:        #141618;
+  --ink-soft:   #3C4045;
+  --muted:      #5B5F63;
+  --rule:       #D6D6D0;
+  --rule-soft:  #E2E2DC;
+  --accent:     #8A2B33;
+  --invert-bg:  #141618;
+  --invert-fg:  #EFEFEC;
+
+  --display: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --body:    'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --wrap: 1280px;
+  --gutter: clamp(1rem, 2.2vw, 1.75rem);
+  --pad-x: clamp(1.25rem, 5vw, 4.5rem);
+  --section-y: clamp(4.5rem, 11vh, 8rem);
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+
+  color-scheme: light;
+  interpolate-size: allow-keywords;
+}
+
+[data-theme="dark"] {
+  --paper: #131416; --field: #1A1C1F; --ink: #EDEDE9; --ink-soft: #C4C5C2;
+  --muted: #94989C; --rule: #2A2C30; --rule-soft: #212327; --accent: #CE6F76;
+  --invert-bg: #EDEDE9; --invert-fg: #131416;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #131416; --field: #1A1C1F; --ink: #EDEDE9; --ink-soft: #C4C5C2;
+    --muted: #94989C; --rule: #2A2C30; --rule-soft: #212327; --accent: #CE6F76;
+    --invert-bg: #EDEDE9; --invert-fg: #131416;
+    color-scheme: dark;
+  }
+}
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+section[id], main[id] { scroll-margin-top: 92px; }
+main:focus { outline: none; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-variation-settings: 'SOFT' 24, 'WONK' 1;
+  font-weight: 500;
+  line-height: 1.03;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 1.05em; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+::selection { background: var(--accent); color: var(--paper); }
+
+.skip {
+  position: absolute; left: 0; top: 0; transform: translateY(-120%);
+  background: var(--ink); color: var(--paper); padding: .8rem 1.2rem; z-index: 200;
+  font: 500 .8rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+}
+.skip:focus { transform: translateY(0); }
+
+.vh {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================
+   3. LAYOUT
+   ============================================================ */
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad-x); }
+.g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+
+.c1-7 { grid-column: 1 / 8; }
+.c1-8 { grid-column: 1 / 9; }
+.c3-10 { grid-column: 3 / 11; }
+.c9-13 { grid-column: 9 / 13; }
+.c10-13 { grid-column: 10 / 13; }
+
+.band { padding-block: var(--section-y); }
+.band-sm { padding-block: clamp(3rem, 7vh, 5rem); }
+.rule-top { border-top: 1px solid var(--rule); }
+
+/* ============================================================
+   4. TYPE UTILITIES
+   ============================================================ */
+.eyebrow { margin: 0; font: 500 .7rem/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.eyebrow--dot { display: inline-flex; align-items: baseline; gap: .6rem; }
+.eyebrow--dot::before {
+  content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); transform: translateY(-1px);
+}
+
+.h-xl { font-size: clamp(2.5rem, 6.6vw, 4.9rem); line-height: .98; letter-spacing: -0.035em; }
+.h-lg { font-size: clamp(1.95rem, 4.2vw, 3rem); letter-spacing: -0.03em; }
+.h-md { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+.h-sm { font-size: clamp(1.05rem, 1.5vw, 1.22rem); letter-spacing: -0.015em; }
+
+.lede { font-size: clamp(1.05rem, 1.3vw, 1.18rem); line-height: 1.6; color: var(--ink-soft); max-width: 46ch; }
+.mono-note { font: 400 .78rem/1.6 var(--mono); color: var(--muted); }
+
+/* ============================================================
+   5. HEADER
+   Terminal-style wordmark + a contact CTA that never leaves the screen.
+   ============================================================ */
+.site-head {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--paper);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease);
+}
+.site-head[data-scrolled="true"] { border-bottom-color: var(--rule); }
+.head-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 66px; }
+
+.wordmark { font: 500 .88rem/1 var(--mono); letter-spacing: -0.01em; white-space: nowrap; display: inline-flex; align-items: baseline; gap: .12rem; }
+.wordmark .prompt { color: var(--accent); }
+.wordmark .caret {
+  display: inline-block; width: .5ch; height: 1em; background: var(--accent);
+  margin-left: .25rem; transform: translateY(.12em); animation: blink 1.15s steps(1) infinite;
+}
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+.nav { display: flex; align-items: center; gap: clamp(.85rem, 2.2vw, 1.9rem); }
+.nav a.nav-link {
+  font: 400 .8rem/1 var(--mono); color: var(--muted); padding: .5rem 0; position: relative;
+  transition: color .22s var(--ease);
+}
+.nav a.nav-link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: .1rem; height: 1px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+.nav a.nav-link:hover, .nav a.nav-link[aria-current="true"] { color: var(--ink); }
+.nav a.nav-link:hover::after, .nav a.nav-link[aria-current="true"]::after { transform: scaleX(1); }
+
+.head-cta {
+  display: inline-flex; align-items: center; gap: .4rem;
+  border: 1px solid var(--rule); border-radius: 999px; padding: .45rem .9rem;
+  font: 400 .76rem/1 var(--mono); color: var(--ink);
+  transition: border-color .22s var(--ease), color .22s var(--ease), gap .25s var(--ease);
+}
+.head-cta:hover { border-color: var(--accent); color: var(--accent); gap: .65rem; }
+@media (max-width: 720px) { .head-cta { display: none; } }
+
+.theme-btn {
+  appearance: none; border: 1px solid var(--rule); background: transparent; color: var(--muted);
+  cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  transition: border-color .22s var(--ease), color .22s var(--ease), transform .22s var(--ease);
+}
+.theme-btn:hover { color: var(--ink); border-color: var(--ink); transform: rotate(-18deg); }
+.theme-btn svg { width: 14px; height: 14px; }
+.icon-moon { display: none; }
+[data-theme="dark"] .icon-sun { display: none; }
+[data-theme="dark"] .icon-moon { display: block; }
+
+/* ============================================================
+   6. HERO
+   ============================================================ */
+.hero { padding-block: clamp(3rem, 9vh, 6.5rem) clamp(2.5rem, 6vh, 4rem); }
+.hero-grid { row-gap: clamp(2.5rem, 6vh, 3.5rem); align-items: center; }
+.hero h1 { margin-block: 1.3rem 1.6rem; }
+.hero h1 em { font-style: italic; font-variation-settings: 'SOFT' 60, 'WONK' 1; font-weight: 300; }
+
+.status { display: inline-flex; align-items: center; gap: .5rem; }
+.status::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  animation: pulse 2.6s var(--ease) infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
+  70%  { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.cta-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
+.btn {
+  --btn-bg: var(--invert-bg); --btn-fg: var(--invert-fg);
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .78rem 1.35rem; border-radius: 999px;
+  border: 1px solid var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg);
+  font: 500 .86rem/1 var(--body); cursor: pointer;
+  transition: transform .22s var(--ease), background-color .22s var(--ease), color .22s var(--ease), border-color .22s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn svg { width: 13px; height: 13px; transition: transform .28s var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); border-color: var(--rule); }
+.btn--ghost:hover { border-color: var(--ink); }
+
+/* Portrait — REPLACE the src with your own photo.
+   If the file is missing the frame shows a labelled placeholder
+   rather than a broken image icon. */
+.portrait { margin: 0; position: relative; }
+.portrait-frame {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+  background: var(--field); border: 1px solid var(--rule);
+}
+.portrait-frame img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; }
+.portrait-frame::after {
+  content: 'Add portrait.jpg'; position: absolute; inset: 0; z-index: 1;
+  display: grid; place-items: center; text-align: center; padding: 1rem;
+  font: 400 .72rem/1.6 var(--mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase;
+}
+.portrait[data-missing="true"] img { display: none; }
+.portrait figcaption {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  margin-top: .85rem; font: 400 .74rem/1.5 var(--mono); color: var(--muted);
+}
+
+/* ============================================================
+   7. SIGNATURE — before/after strip.
+   The numbers count from the old value to the new one on scroll.
+   Every figure here is real. Don't add one you can't defend.
+   ============================================================ */
+.deltas { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: repeat(3, 1fr); }
+.delta { padding: clamp(1.5rem, 3vw, 2.2rem) clamp(1rem, 2.2vw, 2rem) clamp(1.5rem, 3vw, 2.2rem) clamp(1rem, 2.2vw, 2rem); border-left: 1px solid var(--rule); }
+.delta:first-child { border-left: 0; padding-left: 0; }
+.delta-label { margin: 0; font: 500 .66rem/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.delta-figure {
+  display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap; margin: .7rem 0 .5rem;
+  font-family: var(--display); font-variation-settings: 'SOFT' 24, 'WONK' 1; letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.delta-from { font-size: clamp(1rem, 1.7vw, 1.28rem); color: var(--muted); font-weight: 400; }
+.delta-arrow { font-family: var(--mono); font-size: clamp(.85rem, 1.4vw, 1rem); color: var(--accent); font-weight: 500; }
+.delta-to { font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 600; line-height: .95; }
+.delta-note { font: 400 .78rem/1.5 var(--mono); color: var(--muted); }
+@media (max-width: 780px) {
+  .deltas { grid-template-columns: 1fr; }
+  .delta { border-left: 0; border-top: 1px solid var(--rule-soft); padding: 1.4rem 0; }
+  .delta:first-child { border-top: 0; }
+}
+
+/* ============================================================
+   8. TICKER — one, not two. Pauses on hover, stops for reduced motion.
+   The duplicate copy is hidden from assistive tech so nothing is read twice.
+   ============================================================ */
+.ticker {
+  overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: .95rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.ticker-track { display: flex; width: max-content; animation: slide 46s linear infinite; }
+.ticker:hover .ticker-track, .ticker:focus-within .ticker-track { animation-play-state: paused; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.ticker-group { display: flex; align-items: center; gap: clamp(1.1rem, 2.6vw, 2.1rem); padding-right: clamp(1.1rem, 2.6vw, 2.1rem); }
+.ticker-group span { font: 400 .78rem/1 var(--mono); color: var(--muted); white-space: nowrap; letter-spacing: .02em; }
+.ticker-group .sep { color: var(--accent); opacity: .55; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker { overflow-x: auto; }
+  .ticker-track { animation: none; }
+  .ticker-group[aria-hidden] { display: none; }
+}
+
+/* ============================================================
+   9. SECTION HEADS — eyebrow hangs in column 1, title starts at 3.
+   ============================================================ */
+.sec-head { row-gap: 1.1rem; margin-bottom: clamp(2.4rem, 5vh, 3.6rem); align-items: start; }
+.sec-head .eyebrow { grid-column: 1 / 3; padding-top: .7rem; }
+.sec-head .sec-title { grid-column: 3 / 10; }
+.sec-head .sec-aside { grid-column: 10 / 13; padding-top: .5rem; }
+@media (max-width: 900px) {
+  .sec-head .eyebrow, .sec-head .sec-title, .sec-head .sec-aside { grid-column: 1 / -1; }
+}
+
+/* ============================================================
+   10. NOW
+   ============================================================ */
+.now-body { grid-column: 3 / 10; }
+.now-side { grid-column: 10 / 13; }
+@media (max-width: 900px) { .now-body, .now-side { grid-column: 1 / -1; } .now-side { margin-top: 1.8rem; } }
+.now-body p { color: var(--ink-soft); max-width: 60ch; }
+.now-side p { font: 400 .76rem/1.6 var(--mono); color: var(--muted); }
+
+/* ============================================================
+   11. WORK — expandable rows. Native <details>, so this works
+   with JavaScript switched off, including for screen readers.
+   ============================================================ */
+.work-list { border-top: 1px solid var(--rule); }
+.project { border-bottom: 1px solid var(--rule); }
+
+.project > summary {
+  list-style: none; cursor: pointer; position: relative; display: block;
+  padding-block: clamp(1.5rem, 3.2vw, 2.3rem);
+  transition: padding-inline-start .35s var(--ease);
+}
+.project > summary::-webkit-details-marker { display: none; }
+.project > summary::before {
+  content: ''; position: absolute; left: 0; top: -1px; height: 2px; width: 100%;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.project:hover > summary::before, .project[open] > summary::before { transform: scaleX(1); }
+.project:hover > summary, .project[open] > summary { padding-inline-start: .6rem; }
+
+.summary-grid { align-items: baseline; row-gap: .8rem; }
+.p-meta { grid-column: 1 / 4; }
+.p-main { grid-column: 4 / 11; }
+.p-open { grid-column: 12 / 13; justify-self: end; align-self: center; }
+
+.p-index { font: 500 .66rem/1 var(--mono); letter-spacing: .16em; color: var(--muted); transition: color .25s var(--ease); }
+.project:hover .p-index, .project[open] .p-index { color: var(--accent); }
+.p-org { display: block; margin-top: .55rem; font-size: .86rem; color: var(--ink-soft); font-weight: 500; }
+.p-year { display: block; margin-top: .15rem; font: 400 .76rem/1.4 var(--mono); color: var(--muted); }
+
+.p-tag {
+  display: inline-block; margin-top: .55rem;
+  font: 400 .66rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--rule); border-radius: 999px; padding: .35rem .6rem; color: var(--muted);
+}
+
+.p-title { margin-bottom: .55rem; }
+.p-line { color: var(--ink-soft); max-width: 56ch; font-size: .97rem; margin-bottom: .9rem; }
+.p-result { display: inline-flex; align-items: baseline; gap: .4rem; flex-wrap: wrap; font: 500 .8rem/1.4 var(--mono); }
+.p-result .from { color: var(--muted); }
+.p-result .arrow { color: var(--accent); }
+.p-result .to { color: var(--ink); }
+.p-result--plain { color: var(--ink-soft); font-weight: 400; }
+
+.toggle-mark {
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--rule);
+  display: grid; place-items: center; position: relative;
+  transition: border-color .28s var(--ease), transform .35s var(--ease), background-color .28s var(--ease);
+}
+.toggle-mark::before, .toggle-mark::after {
+  content: ''; position: absolute; background: var(--ink);
+  transition: transform .35s var(--ease), background-color .28s var(--ease);
+}
+.toggle-mark::before { width: 11px; height: 1.5px; }
+.toggle-mark::after { width: 1.5px; height: 11px; }
+.project[open] .toggle-mark { background: var(--accent); border-color: var(--accent); transform: rotate(90deg); }
+.project[open] .toggle-mark::before { background: var(--paper); }
+.project[open] .toggle-mark::after { transform: scaleY(0); }
+.project:hover .toggle-mark { border-color: var(--ink); }
+
+.project::details-content { block-size: 0; overflow: hidden; transition: block-size .5s var(--ease), content-visibility .5s allow-discrete; }
+.project[open]::details-content { block-size: auto; }
+
+.case { padding-bottom: clamp(2.5rem, 5vw, 3.5rem); row-gap: 2rem; }
+.case-side { grid-column: 1 / 4; }
+.case-body { grid-column: 4 / 11; }
+
+/* Project screenshot — REPLACE src. Falls back to a labelled frame. */
+.shot { margin: 0 0 2rem; }
+.shot-frame {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  background: var(--field); border: 1px solid var(--rule);
+}
+.shot-frame img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; }
+.shot-frame::after {
+  content: attr(data-hint); position: absolute; inset: 0; z-index: 1; display: grid; place-items: center;
+  font: 400 .7rem/1.6 var(--mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase;
+}
+.shot[data-missing="true"] img { display: none; }
+
+.case-step { display: grid; grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr); gap: 1.4rem; padding-block: 1.25rem; border-top: 1px solid var(--rule-soft); }
+.case-step:first-child { border-top: 0; padding-top: 0; }
+.case-step h4 { margin: 0; font-family: var(--mono); font-weight: 500; font-size: .68rem; line-height: 1.6; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.case-step p { color: var(--ink-soft); font-size: .97rem; max-width: 58ch; }
+
+.stack { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.stack li { font: 400 .72rem/1 var(--mono); padding: .45rem .7rem; border: 1px solid var(--rule); border-radius: 999px; color: var(--muted); }
+
+.case-links { display: flex; flex-direction: column; gap: .55rem; margin-top: 1.4rem; }
+.link-out {
+  display: inline-flex; align-items: center; gap: .45rem; width: fit-content;
+  font: 500 .82rem/1 var(--body); color: var(--ink);
+  border-bottom: 1px solid var(--rule); padding-bottom: .4rem;
+  transition: border-color .25s var(--ease), color .25s var(--ease), gap .25s var(--ease);
+}
+.link-out:hover { color: var(--accent); border-color: var(--accent); gap: .75rem; }
+.link-out svg { width: 11px; height: 11px; }
+
+@media (max-width: 900px) {
+  .p-meta, .p-main { grid-column: 1 / 12; }
+  .p-open { grid-column: 12 / 13; align-self: start; }
+  .case-side, .case-body { grid-column: 1 / -1; }
+  .case-side { order: 2; }
+  .case-step { grid-template-columns: 1fr; gap: .45rem; }
+}
+
+/* ============================================================
+   12. HOW I WORK — staggered, not a flat grid of identical cards.
+   Deliberately unnumbered: these aren't a sequence.
+   ============================================================ */
+.notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); }
+.notes > li { list-style: none; }
+.notes > li:nth-child(even) { margin-top: clamp(0rem, 4vw, 3.5rem); }
+.note-mark { display: block; width: 22px; height: 1px; background: var(--accent); margin-bottom: 1.1rem; }
+.notes h3 { margin-bottom: .7rem; }
+.notes p { color: var(--ink-soft); font-size: .95rem; max-width: 42ch; }
+@media (max-width: 760px) {
+  .notes { grid-template-columns: 1fr; gap: 2.4rem; }
+  .notes > li:nth-child(even) { margin-top: 0; }
+}
+
+/* ============================================================
+   13. PATH — one chronology for work and study, newest first.
+   ============================================================ */
+.timeline { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.tl-item { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2.4rem); padding-block: 1.5rem; border-bottom: 1px solid var(--rule-soft); position: relative; }
+.tl-item::before {
+  content: ''; position: absolute; left: 0; top: -1px; height: 1px; width: 100%;
+  background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease);
+}
+.tl-item:hover::before { transform: scaleX(1); }
+.tl-date { font: 400 .76rem/1.7 var(--mono); color: var(--muted); }
+.tl-kind { display: block; font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); opacity: .75; margin-top: .2rem; }
+.tl-role { margin-bottom: .4rem; }
+.tl-where { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; margin-top: .3rem; font-family: var(--body); letter-spacing: 0; }
+.tl-item p { color: var(--ink-soft); font-size: .93rem; max-width: 60ch; margin-top: .7rem; }
+@media (max-width: 700px) { .tl-item { grid-template-columns: 1fr; gap: .5rem; } }
+
+/* ============================================================
+   14. TESTIMONIAL
+   ============================================================ */
+.quote-block { grid-column: 3 / 11; }
+@media (max-width: 900px) { .quote-block { grid-column: 1 / -1; } }
+blockquote { margin: 0; }
+blockquote p {
+  font-family: var(--display); font-variation-settings: 'SOFT' 40, 'WONK' 1;
+  font-size: clamp(1.3rem, 2.8vw, 2rem); line-height: 1.25; letter-spacing: -0.02em;
+  color: var(--ink); text-indent: -0.4em;
+}
+blockquote footer { margin-top: 1.5rem; font: 400 .78rem/1.5 var(--mono); color: var(--muted); }
+blockquote footer strong { color: var(--ink-soft); font-weight: 500; }
+
+/* ============================================================
+   15. ABOUT
+   ============================================================ */
+.about-lead { grid-column: 1 / 8; margin-bottom: 2.4rem; }
+.about-cols { grid-column: 1 / 8; column-count: 2; column-gap: var(--gutter); }
+.about-cols p { break-inside: avoid; font-size: .96rem; color: var(--ink-soft); }
+.about-side { grid-column: 9 / 13; }
+.side-block { border-top: 1px solid var(--rule); padding-top: 1rem; margin-bottom: 2rem; }
+.side-block h3 { margin: 0 0 1rem; font-family: var(--mono); font-weight: 500; font-size: .66rem; line-height: 1; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.side-block ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; }
+.side-block li { font-size: .87rem; color: var(--ink-soft); line-height: 1.5; }
+.side-block li b { display: block; color: var(--ink); font-weight: 500; }
+@media (max-width: 1000px) {
+  .about-lead, .about-cols, .about-side { grid-column: 1 / -1; }
+  .about-cols { column-count: 1; margin-bottom: 2.4rem; }
+}
+
+/* ============================================================
+   16. CONTACT
+   ============================================================ */
+.contact { background: var(--field); transition: background-color .3s var(--ease); }
+.contact-lead { grid-column: 1 / 8; }
+.contact-side { grid-column: 9 / 13; }
+@media (max-width: 1000px) { .contact-lead, .contact-side { grid-column: 1 / -1; } .contact-side { margin-top: 2.8rem; } }
+
+.mail-link {
+  display: inline-block; font-family: var(--display); font-variation-settings: 'SOFT' 24, 'WONK' 1;
+  font-size: clamp(1.5rem, 4.6vw, 3.1rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.05;
+  margin: 1.4rem 0 1.5rem; word-break: break-word;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat;
+  transition: background-size .45s var(--ease), color .25s var(--ease);
+}
+.mail-link:hover { color: var(--accent); background-size: 100% 1px; }
+
+.copy-btn {
+  appearance: none; cursor: pointer; background: transparent; border: 1px solid var(--rule); color: var(--muted);
+  border-radius: 999px; padding: .55rem 1rem; font: 400 .74rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+  transition: color .22s var(--ease), border-color .22s var(--ease);
+}
+.copy-btn:hover { color: var(--ink); border-color: var(--ink); }
+.copy-btn[data-copied="true"] { color: var(--accent); border-color: var(--accent); }
+
+.link-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.link-list li { border-bottom: 1px solid var(--rule); }
+.link-list a {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0;
+  font: 500 .9rem/1 var(--body); transition: color .22s var(--ease), padding-inline-start .3s var(--ease);
+}
+.link-list a span { font: 400 .74rem/1 var(--mono); color: var(--muted); transition: color .22s var(--ease), transform .3s var(--ease); }
+.link-list a:hover { color: var(--accent); padding-inline-start: .5rem; }
+.link-list a:hover span { color: var(--accent); transform: translateX(-3px); }
+
+/* ============================================================
+   17. FOOTER
+   ============================================================ */
+.site-foot { border-top: 1px solid var(--rule); }
+.foot-inner { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; align-items: center; padding-block: 2rem; }
+.foot-inner p { margin: 0; font: 400 .74rem/1.6 var(--mono); color: var(--muted); }
+.to-top { font: 400 .74rem/1 var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; transition: color .22s var(--ease); }
+.to-top:hover { color: var(--ink); }
+
+/* ============================================================
+   18. REVEAL
+   ============================================================ */
+.js .reveal { opacity: 0; transform: translateY(18px); }
+.js .reveal.in { opacity: 1; transform: none; transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.js .reveal.in.d1 { transition-delay: .07s; }
+.js .reveal.in.d2 { transition-delay: .14s; }
+.js .reveal.in.d3 { transition-delay: .21s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .js .reveal { opacity: 1; transform: none; }
+  .wordmark .caret { animation: none; opacity: 1; }
+}
+
+/* ============================================================
+   19. MOBILE
+   ============================================================ */
+@media (max-width: 760px) {
+  .summary-grid { grid-template-columns: minmax(0, 1fr) 34px; }
+  .p-meta { grid-column: 1 / 2; grid-row: 1; }
+  .p-main { grid-column: 1 / 2; grid-row: 2; }
+  .p-open { grid-column: 2 / 3; grid-row: 1; align-self: start; }
+  .case { grid-template-columns: minmax(0, 1fr); }
+  .c1-7, .c1-8, .c3-10, .c9-13, .c10-13 { grid-column: 1 / -1; }
+  body { font-size: 1rem; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#top">Skip to content</a>
+
+<header class="site-head" id="siteHead">
+  <div class="wrap head-inner">
+    <a class="wordmark" href="#top"><span class="prompt">$</span>peterfasae.dev<span class="caret" aria-hidden="true"></span></a>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="#work">work</a>
+      <a class="nav-link" href="#about">about</a>
+      <a class="nav-link" href="#contact">contact</a>
+      <!-- REPLACE: your email -->
+      <a class="head-cta" href="mailto:pfasae@gmail.com?subject=Hello%20Peter">let's talk →</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top" tabindex="-1">
+
+  <!-- ============================================================
+       HERO — REPLACE the headline with your own tagline. Keep it a
+       claim the three numbers underneath actually prove.
+       ============================================================ -->
+  <section class="hero wrap" aria-labelledby="heroTitle">
+    <div class="g12 hero-grid">
+      <div class="c1-7">
+        <p class="eyebrow reveal"><span class="status">Open to work</span> — London, hybrid or remote</p>
+        <h1 class="h-xl reveal d1" id="heroTitle">I make slow things fast and <em>fragile</em> things dependable.</h1>
+        <p class="lede reveal d2">Full stack engineer working in TypeScript, React and Node. I've shipped production features to around 30,000 monthly users, and I spend most of my time on the parts nobody demos: performance, tests, and code the next person has to maintain.</p>
+        <div class="cta-row reveal d2">
+          <a class="btn" href="#work">See the work
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <!-- REPLACE: drop a photo at /me/portrait.jpg. A real face
+           outperforms every other trust signal on a personal site. -->
+      <figure class="portrait c9-13 reveal d3" id="portrait">
+        <div class="portrait-frame">
+          <img src="me/portrait.jpg" alt="Peter Fasae" width="800" height="1000" loading="eager" decoding="async"
+               onerror="document.getElementById('portrait').dataset.missing='true'">
+        </div>
+        <figcaption><span>Peter Fasae</span><span>London, UK</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE NUMBERS — real before/after measurements, animated on scroll.
+       REPLACE with your own. If you don't have a number for something,
+       leave it out. You will be asked about every figure here.
+       ============================================================ -->
+  <section class="wrap" aria-label="Selected results">
+    <div class="deltas reveal">
+      <div class="delta">
+        <p class="delta-label">Dashboard load time</p>
+        <p class="delta-figure">
+          <span class="delta-from">3.1s</span><span class="delta-arrow" aria-hidden="true">→</span>
+          <span class="delta-to" data-count data-from="3.1" data-to="0.8" data-decimals="1" data-suffix="s">0.8s</span>
+        </p>
+        <p class="delta-note">React Query rewrite · ~30k monthly users</p>
+      </div>
+      <div class="delta">
+        <p class="delta-label">Payments test coverage</p>
+        <p class="delta-figure">
+          <span class="delta-from">34%</span><span class="delta-arrow" aria-hidden="true">→</span>
+          <span class="delta-to" data-count data-from="34" data-to="76" data-decimals="0" data-suffix="%">76%</span>
+        </p>
+        <p class="delta-note">Two regressions caught pre-release</p>
+      </div>
+      <div class="delta">
+        <p class="delta-label">Weekly reporting task</p>
+        <p class="delta-figure">
+          <span class="delta-from">120 min</span><span class="delta-arrow" aria-hidden="true">→</span>
+          <span class="delta-to" data-count data-from="120" data-to="10" data-decimals="0" data-suffix=" min">10 min</span>
+        </p>
+        <p class="delta-note">Python automation built on a retail shift</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack ticker. One only — a second competing marquee just splits attention. -->
+  <div class="ticker" aria-label="Technologies I work with">
+    <div class="ticker-track">
+      <div class="ticker-group">
+        <span>TypeScript</span><span class="sep" aria-hidden="true">/</span>
+        <span>React</span><span class="sep" aria-hidden="true">/</span>
+        <span>Next.js</span><span class="sep" aria-hidden="true">/</span>
+        <span>Node.js</span><span class="sep" aria-hidden="true">/</span>
+        <span>Express</span><span class="sep" aria-hidden="true">/</span>
+        <span>PostgreSQL</span><span class="sep" aria-hidden="true">/</span>
+        <span>Prisma</span><span class="sep" aria-hidden="true">/</span>
+        <span>Redis</span><span class="sep" aria-hidden="true">/</span>
+        <span>Python</span><span class="sep" aria-hidden="true">/</span>
+        <span>Jest</span><span class="sep" aria-hidden="true">/</span>
+        <span>Vitest</span><span class="sep" aria-hidden="true">/</span>
+        <span>Playwright</span><span class="sep" aria-hidden="true">/</span>
+        <span>AWS</span><span class="sep" aria-hidden="true">/</span>
+        <span>Docker</span><span class="sep" aria-hidden="true">/</span>
+        <span>GitHub Actions</span><span class="sep" aria-hidden="true">/</span>
+        <span>Tailwind</span><span class="sep" aria-hidden="true">/</span>
+      </div>
+      <!-- Second copy is decorative: hidden from screen readers so the
+           list isn't announced twice. -->
+      <div class="ticker-group" aria-hidden="true">
+        <span>TypeScript</span><span class="sep">/</span>
+        <span>React</span><span class="sep">/</span>
+        <span>Next.js</span><span class="sep">/</span>
+        <span>Node.js</span><span class="sep">/</span>
+        <span>Express</span><span class="sep">/</span>
+        <span>PostgreSQL</span><span class="sep">/</span>
+        <span>Prisma</span><span class="sep">/</span>
+        <span>Redis</span><span class="sep">/</span>
+        <span>Python</span><span class="sep">/</span>
+        <span>Jest</span><span class="sep">/</span>
+        <span>Vitest</span><span class="sep">/</span>
+        <span>Playwright</span><span class="sep">/</span>
+        <span>AWS</span><span class="sep">/</span>
+        <span>Docker</span><span class="sep">/</span>
+        <span>GitHub Actions</span><span class="sep">/</span>
+        <span>Tailwind</span><span class="sep">/</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NOW — what you're actually doing this month.
+       REPLACE every few months and update the date. A stale "now"
+       section is worse than none at all.
+       ============================================================ -->
+  <section class="band-sm wrap" aria-labelledby="nowTitle">
+    <div class="g12 sec-head">
+      <p class="eyebrow reveal">Now</p>
+      <h2 class="h-md sec-title reveal d1" id="nowTitle">What I'm working on this month.</h2>
+    </div>
+    <div class="g12">
+      <div class="now-body reveal">
+        <p>Most of my week goes to annotating and evaluating code for AI training at Alignerr — reading other people's solutions closely enough to judge them has made me a much sharper reviewer than I was a year ago. The rest goes to Clarity, the note-taking app I built and now actually use.</p>
+        <p>I'm looking for a junior or mid-level engineering role in London, on a team that reviews code properly and expects me to keep getting better. Until then I keep shipping.</p>
+      </div>
+      <div class="now-side reveal d1">
+        <p>Updated August 2026<br>London, UK<br>Replying within a day</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORK — leads the page, before any biography.
+       Rows expand in place. Delete a whole <details> to remove one.
+       Five is the ceiling: a short list of strong work beats a long
+       list of everything you've ever touched.
+       ============================================================ -->
+  <section class="band wrap rule-top" id="work" aria-labelledby="workTitle">
+    <div class="g12 sec-head">
+      <p class="eyebrow reveal">Selected work</p>
+      <h2 class="h-lg sec-title reveal d1" id="workTitle">Five things I built, and what actually changed because of them.</h2>
+      <p class="mono-note sec-aside reveal d2">Open any project for the full case study.</p>
+    </div>
+
+    <div class="work-list">
+
+      <!-- PROJECT 01 -->
+      <details class="project reveal">
+        <summary>
+          <div class="g12 summary-grid">
+            <div class="p-meta">
+              <span class="p-index">01</span>
+              <strong class="p-org">BlueBow Group</strong>
+              <span class="p-year">2025 · London</span>
+              <span class="p-tag">In production</span>
+            </div>
+            <div class="p-main">
+              <h3 class="h-md p-title">Customer dashboard performance rewrite</h3>
+              <p class="p-line">The first screen 30,000 people saw every month took three seconds to appear, and half of what it showed was already out of date.</p>
+              <p class="p-result"><span class="from">3.1s</span><span class="arrow">→</span><span class="to">0.8s median load</span></p>
+            </div>
+            <div class="p-open"><span class="toggle-mark" aria-hidden="true"></span></div>
+          </div>
+        </summary>
+
+        <div class="g12 case">
+          <div class="case-side">
+            <ul class="stack"><li>React</li><li>TypeScript</li><li>React Query</li><li>REST</li></ul>
+            <!-- REPLACE: a real link, or delete the <a>. A dead link
+                 costs more than a missing one. -->
+            <div class="case-links">
+              <a class="link-out" href="#contact">Ask me about this one
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="case-body">
+            <!-- REPLACE: /projects/dashboard.jpg — a screenshot, a before/after
+                 pair, or a whiteboard photo. Anything real beats nothing. -->
+            <figure class="shot" id="shot1">
+              <div class="shot-frame" data-hint="Add projects/dashboard.jpg">
+                <img src="projects/dashboard.jpg" alt="The rebuilt customer dashboard" width="1280" height="720" loading="lazy" decoding="async"
+                     onerror="document.getElementById('shot1').dataset.missing='true'">
+              </div>
+            </figure>
+            <div class="case-step"><h4>Problem</h4>
+              <p>Every panel on the dashboard fetched its own data on mount, then fetched it again on every tab switch. Nothing was shared, nothing was cached, and users regularly acted on numbers that were minutes stale. Support was fielding roughly fifteen tickets a month that all traced back to the same root cause.</p></div>
+            <div class="case-step"><h4>Process</h4>
+              <p>I measured before I touched anything. Profiling the network waterfall showed the same three endpoints being hit four times on a cold load. I mapped which data was genuinely shared across panels, took a migration plan to two senior engineers, and moved one panel first as a proof rather than proposing a big-bang rewrite.</p></div>
+            <div class="case-step"><h4>Solution</h4>
+              <p>A single shared query layer with keyed caching, background refetching, and cache invalidation tied to write operations, so the UI updates itself instead of waiting to be told. Spinners were replaced with skeleton states matched to the real layout, which stopped the page shifting as data landed.</p></div>
+            <div class="case-step"><h4>Outcome</h4>
+              <p>Median load dropped from 3.1s to 0.8s and the stale-data tickets stopped. The pattern was picked up on two other screens by the rest of the team, which I think mattered more than the numbers did.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- PROJECT 02 -->
+      <details class="project reveal">
+        <summary>
+          <div class="g12 summary-grid">
+            <div class="p-meta">
+              <span class="p-index">02</span>
+              <strong class="p-org">BlueBow Group</strong>
+              <span class="p-year">2025 · London</span>
+              <span class="p-tag">In production</span>
+            </div>
+            <div class="p-main">
+              <h3 class="h-md p-title">Billing API and role-based access control</h3>
+              <p class="p-line">The highest-risk part of the product was also the least tested. I built the new endpoints, and put a net under the old ones first.</p>
+              <p class="p-result"><span class="from">34%</span><span class="arrow">→</span><span class="to">76% test coverage</span></p>
+            </div>
+            <div class="p-open"><span class="toggle-mark" aria-hidden="true"></span></div>
+          </div>
+        </summary>
+
+        <div class="g12 case">
+          <div class="case-side">
+            <ul class="stack"><li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>JWT</li><li>Jest</li></ul>
+            <div class="case-links">
+              <a class="link-out" href="#contact">Ask me about this one
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="case-body">
+            <figure class="shot" id="shot2">
+              <div class="shot-frame" data-hint="Add projects/billing.jpg — a schema or coverage report works well here">
+                <img src="projects/billing.jpg" alt="Billing service architecture" width="1280" height="720" loading="lazy" decoding="async"
+                     onerror="document.getElementById('shot2').dataset.missing='true'">
+              </div>
+            </figure>
+            <div class="case-step"><h4>Problem</h4>
+              <p>A new admin tier needed billing endpoints that didn't exist yet. The existing payments service sat at 34% coverage — enough to feel safe, not enough to be safe — and permission checks were scattered through individual route handlers where they were easy to forget.</p></div>
+            <div class="case-step"><h4>Process</h4>
+              <p>I wrote the endpoint contract and agreed the schema in review before writing implementation code. Then I backfilled tests around the existing payment paths first, so refactoring them had something underneath it. Roles were modelled explicitly rather than inferred from a scatter of boolean flags.</p></div>
+            <div class="case-step"><h4>Solution</h4>
+              <p>A validated REST endpoint set with schema-level input validation at the boundary and role-based access control enforced in middleware, not in handlers — so a new route is protected by default rather than by remembering. Database constraints do the work the application layer shouldn't be trusted with.</p></div>
+            <div class="case-step"><h4>Outcome</h4>
+              <p>Coverage went from 34% to 76%, and the new tests caught two regressions before they reached release. The endpoints are still running in production.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- PROJECT 03 -->
+      <details class="project reveal">
+        <summary>
+          <div class="g12 summary-grid">
+            <div class="p-meta">
+              <span class="p-index">03</span>
+              <strong class="p-org">Personal project</strong>
+              <span class="p-year">2025 · Ongoing</span>
+              <span class="p-tag">Live</span>
+            </div>
+            <div class="p-main">
+              <h3 class="h-md p-title">Clarity — note-taking built for ADHD brains</h3>
+              <p class="p-line">Capture was never the problem. Retrieval was. So I built the app around getting things back out.</p>
+              <!-- No invented metric here on purpose. A plain fact reads as
+                   more credible than a number you can't defend. -->
+              <p class="p-result p-result--plain">Grew out of my final-year project · in daily use</p>
+            </div>
+            <div class="p-open"><span class="toggle-mark" aria-hidden="true"></span></div>
+          </div>
+        </summary>
+
+        <div class="g12 case">
+          <div class="case-side">
+            <ul class="stack"><li>React</li><li>AWS Lambda</li><li>DynamoDB</li><li>Cognito</li><li>GitHub Actions</li></ul>
+            <div class="case-links">
+              <a class="link-out" href="https://github.com/PeterFasae" target="_blank" rel="noopener">View the code
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="case-body">
+            <figure class="shot" id="shot3">
+              <div class="shot-frame" data-hint="Add projects/clarity.jpg">
+                <img src="projects/clarity.jpg" alt="Clarity note-taking interface" width="1280" height="720" loading="lazy" decoding="async"
+                     onerror="document.getElementById('shot3').dataset.missing='true'">
+              </div>
+            </figure>
+            <div class="case-step"><h4>Problem</h4>
+              <p>Most note apps quietly assume you'll come back later and organise. For people with ADHD that assumption is exactly where the system fails: notes go in fast and never come out, and the app becomes one more place to feel behind.</p></div>
+            <div class="case-step"><h4>Process</h4>
+              <p>I started from the failure point rather than the feature list. Talking through how people actually use these apps narrowed it to three moves worth designing for: dump it fast, have it summarised, get the actions out. Anything that didn't serve one of those three got cut.</p></div>
+            <div class="case-step"><h4>Solution</h4>
+              <p>A React front end on a serverless API — Lambda behind API Gateway, Cognito for auth, DynamoDB for notes. Summarisation runs on save and pulls actionable tasks into their own list. Semantic search means you can find a note by what it was about rather than what you happened to call it. Real-time sync keeps phone and laptop honest.</p></div>
+            <div class="case-step"><h4>Outcome</h4>
+              <p>It started as my final-year project and it's the note app I actually use. Automated tests and a CI/CD pipeline mean I can still ship to it a year later without needing a careful mood.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- PROJECT 04 -->
+      <details class="project reveal">
+        <summary>
+          <div class="g12 summary-grid">
+            <div class="p-meta">
+              <span class="p-index">04</span>
+              <strong class="p-org">Acumen Digital</strong>
+              <span class="p-year">2024 · Client work</span>
+              <span class="p-tag">Live</span>
+            </div>
+            <div class="p-main">
+              <h3 class="h-md p-title">Restaurant ordering flow, rebuilt</h3>
+              <p class="p-line">The owner thought it was the prices. The funnel said it was the four-step checkout and the forced account.</p>
+              <p class="p-result"><span class="from">Baseline</span><span class="arrow">→</span><span class="to">+22% completed orders</span></p>
+            </div>
+            <div class="p-open"><span class="toggle-mark" aria-hidden="true"></span></div>
+          </div>
+        </summary>
+
+        <div class="g12 case">
+          <div class="case-side">
+            <ul class="stack"><li>Next.js</li><li>Headless CMS</li><li>REST</li><li>Vercel</li></ul>
+            <div class="case-links">
+              <a class="link-out" href="#contact">Ask me about this one
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="case-body">
+            <figure class="shot" id="shot4">
+              <div class="shot-frame" data-hint="Add projects/ordering.jpg — a mobile before/after works best">
+                <img src="projects/ordering.jpg" alt="Rebuilt restaurant ordering flow" width="1280" height="720" loading="lazy" decoding="async"
+                     onerror="document.getElementById('shot4').dataset.missing='true'">
+              </div>
+            </figure>
+            <div class="case-step"><h4>Problem</h4>
+              <p>A local restaurant had a site that took online orders but rarely finished them. People arrived, browsed the menu, and left somewhere between the basket and the confirmation. The owner's theory was pricing.</p></div>
+            <div class="case-step"><h4>Process</h4>
+              <p>I looked at the funnel before touching the design. Drop-off clustered at two points: the moment the site demanded an account, and a menu that reflowed unusably on phones — where most of the traffic was coming from. That reframed the job from redesign to removal.</p></div>
+            <div class="case-step"><h4>Solution</h4>
+              <p>Guest checkout, four steps collapsed into two, and a basket that survives a page reload. The menu became one scannable list with sticky category navigation on mobile. Built on Next.js with a headless CMS so the owner could change prices and specials without calling me.</p></div>
+            <div class="case-step"><h4>Outcome</h4>
+              <p>Completed online orders rose around 22% over the first two months. The owner has been updating her own menu ever since, which was the part of the handover I cared most about.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- PROJECT 05 -->
+      <details class="project reveal">
+        <summary>
+          <div class="g12 summary-grid">
+            <div class="p-meta">
+              <span class="p-index">05</span>
+              <strong class="p-org">Personal project</strong>
+              <span class="p-year">2024</span>
+              <span class="p-tag">Testnet</span>
+            </div>
+            <div class="p-main">
+              <h3 class="h-md p-title">Blockchain e-voting system</h3>
+              <p class="p-line">Electronic voting asks people to trust a database they can't see. The interesting problem is making the count checkable without exposing the voter.</p>
+              <p class="p-result p-result--plain">Deployed to Ethereum Sepolia · end-to-end demo</p>
+            </div>
+            <div class="p-open"><span class="toggle-mark" aria-hidden="true"></span></div>
+          </div>
+        </summary>
+
+        <div class="g12 case">
+          <div class="case-side">
+            <ul class="stack"><li>Solidity</li><li>Ethereum Sepolia</li><li>Node.js</li><li>Express</li></ul>
+            <div class="case-links">
+              <a class="link-out" href="https://github.com/PeterFasae" target="_blank" rel="noopener">View the code
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="case-body">
+            <figure class="shot" id="shot5">
+              <div class="shot-frame" data-hint="Add projects/evoting.jpg — a contract state diagram reads well">
+                <img src="projects/evoting.jpg" alt="E-voting contract stages" width="1280" height="720" loading="lazy" decoding="async"
+                     onerror="document.getElementById('shot5').dataset.missing='true'">
+              </div>
+            </figure>
+            <div class="case-step"><h4>Problem</h4>
+              <p>A voting system has to satisfy two things that pull against each other: anyone should be able to verify the result, and nobody should be able to link a vote to a person. A conventional back end asks you to take both on trust.</p></div>
+            <div class="case-step"><h4>Process</h4>
+              <p>I read how existing approaches handle it, then wrote the contract before the interface — the guarantees had to be settled before any of the UI decisions made sense. Registration, casting and tallying were modelled as separate stages with explicit transitions, so an invalid sequence is impossible rather than merely discouraged.</p></div>
+            <div class="case-step"><h4>Solution</h4>
+              <p>Solidity smart contracts handling voter registration, one-vote-per-address casting, and automatic tallying at close. A Node and Express service sits alongside for everything that has no business being on-chain, keeping gas costs and stored data to what actually needs to be public.</p></div>
+            <div class="case-step"><h4>Outcome</h4>
+              <p>Deployed to the Sepolia testnet with a working end-to-end demo. It taught me more about state machines, immutability and the cost of a bad schema than anything else I've built.</p></div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW I WORK — deliberately not numbered. These are habits,
+       not a sequence, so numbering them would be decoration.
+       REPLACE with your own, but keep each one tied to something
+       you actually did. Generic principles read as filler.
+       ============================================================ -->
+  <section class="band wrap rule-top" aria-labelledby="ethosTitle">
+    <div class="g12 sec-head">
+      <p class="eyebrow reveal">How I work</p>
+      <h2 class="h-lg sec-title reveal d1" id="ethosTitle">Four habits I've earned the hard way.</h2>
+    </div>
+    <ul class="notes">
+      <li class="reveal">
+        <span class="note-mark" aria-hidden="true"></span>
+        <h3 class="h-sm">Measure before you touch it</h3>
+        <p>I don't trust my instinct about what's slow. The dashboard rewrite started with a profiler rather than an opinion, and the profiler disagreed with everyone — me included.</p>
+      </li>
+      <li class="reveal d1">
+        <span class="note-mark" aria-hidden="true"></span>
+        <h3 class="h-sm">Make the safe path the default path</h3>
+        <p>Permission checks belong in middleware, not in handlers. Constraints belong in the database. If correctness depends on someone remembering, it will eventually be forgotten.</p>
+      </li>
+      <li class="reveal">
+        <span class="note-mark" aria-hidden="true"></span>
+        <h3 class="h-sm">Ship the smallest real version</h3>
+        <p>I'd rather migrate one panel and prove the pattern works than propose a rewrite and spend two weeks defending it in meetings. Working code is a better argument than a document.</p>
+      </li>
+      <li class="reveal d1">
+        <span class="note-mark" aria-hidden="true"></span>
+        <h3 class="h-sm">Write it down for the next person</h3>
+        <p>The onboarding docs I wrote at BlueBow are still used by every new starter. Of everything I did there, that's the one I'm quietly most pleased with.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============================================================
+       PATH — work and study in one chronology, newest first.
+       Keeping them in a single list shows the overlap honestly:
+       you were working while you studied. That's a strength.
+       ============================================================ -->
+  <section class="band wrap rule-top" aria-labelledby="pathTitle">
+    <div class="g12 sec-head">
+      <p class="eyebrow reveal">Path so far</p>
+      <h2 class="h-lg sec-title reveal d1" id="pathTitle">Lagos to New Delhi to London, mostly while working.</h2>
+      <p class="mono-note sec-aside reveal d2">Study and work, one timeline.</p>
+    </div>
+
+    <ol class="timeline reveal">
+      <li class="tl-item">
+        <div class="tl-date">2025 — present<span class="tl-kind">Work</span></div>
+        <div>
+          <h3 class="h-sm tl-role">AI / ML Product Contributor<span class="tl-where">Alignerr · Remote</span></h3>
+          <p>Annotating and evaluating real programming tasks to improve how models write code, across live code environments. Reading solutions closely enough to judge them has made me a sharper reviewer of my own work.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">Feb — Aug 2025<span class="tl-kind">Work</span></div>
+        <div>
+          <h3 class="h-sm tl-role">Software Developer Intern<span class="tl-where">BlueBow Group · London</span></h3>
+          <p>Shipped eight-plus user-facing features into a React and TypeScript product serving around 30,000 monthly users, on two-week sprints alongside three senior engineers. Reviewed pull requests weekly and wrote the onboarding docs.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2025<span class="tl-kind">Study</span></div>
+        <div>
+          <h3 class="h-sm tl-role">BSc (Hons) Information Technology — First Class<span class="tl-where">Middlesex University · London</span></h3>
+          <p>Advanced Software Engineering, Full Stack Development, Defensive Security. Final year project: an adaptive cloud-based note-taking system on AWS Lambda, API Gateway, DynamoDB and Cognito.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2024 — present<span class="tl-kind">Work</span></div>
+        <div>
+          <h3 class="h-sm tl-role">Shift Lead<span class="tl-where">Marks &amp; Spencer · London</span></h3>
+          <p>Around sixty customer problems a day, alongside full-time study. Built my first genuinely useful thing here: a Python script that took a weekly reporting task from two hours to ten minutes.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2023 — 2024<span class="tl-kind">Work</span></div>
+        <div>
+          <h3 class="h-sm tl-role">Web Developer<span class="tl-where">Acumen Digital · Nigeria</span></h3>
+          <p>Five client websites end to end — scoping, build, deployment, handover — on Next.js and a headless CMS. Managed the client relationships and deadlines myself, translating non-technical requests into scoped tickets.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2019 — 2021<span class="tl-kind">Study</span></div>
+        <div>
+          <h3 class="h-sm tl-role">Advanced Diploma in Software Engineering — Distinction<span class="tl-where">Aptech · New Delhi, India</span></h3>
+          <p>Top 7% of the cohort. Where the fundamentals came from, two countries before this one.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIAL — one quote, deliberately.
+       REPLACE with a real quote and a real name, or delete the whole
+       <section>. It's marked as a placeholder so you can't ship it
+       by accident. Ask your BlueBow lead — people usually say yes.
+       ============================================================ -->
+  <section class="band-sm wrap rule-top" aria-label="Feedback">
+    <div class="g12">
+      <blockquote class="quote-block reveal">
+        <p>“He asks the question everyone else skipped past, then goes and fixes the thing nobody wanted to touch. He left the codebase better documented than he found it.”</p>
+        <footer><strong>[Add name here]</strong> — Senior Engineer, BlueBow Group</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <section class="band wrap rule-top" id="about" aria-labelledby="aboutTitle">
+    <div class="g12 sec-head">
+      <p class="eyebrow reveal">About</p>
+      <h2 class="h-lg sec-title reveal d1" id="aboutTitle">The part I like is where an idea turns into something you can click.</h2>
+    </div>
+
+    <div class="g12">
+      <div class="about-lead reveal">
+        <p class="lede">I'm a software engineer in London. I build applications that solve real problems, and I care about what happens to them after launch — whether they hold up, whether they're readable, whether the next person can change them without dread.</p>
+      </div>
+
+      <div class="about-cols reveal d1">
+        <p>What pulled me into this work was watching an idea become tangible: creativity and logic doing the same job at the same time. That hasn't worn off. I still get more out of understanding why a system behaves the way it does than out of getting something working by luck.</p>
+        <p>I work best with other people. The best solutions I've been part of came out of code review, pairing, and someone asking a question I'd been avoiding. I'd rather have my approach challenged early than defend it late.</p>
+        <p>Retail taught me how to stay calm when something breaks and everyone is watching, which turns out to transfer neatly to production incidents. It also gave me the first thing I ever built that someone else used.</p>
+        <p>Outside work I co-ran a coding club teaching JavaScript to secondary school students, and I volunteer with Volunteers on Wheels delivering food and clothing to community hubs.</p>
+      </div>
+
+      <!-- REPLACE: keep this current — it's your credibility at a glance. -->
+      <aside class="about-side reveal d2">
+        <div class="side-block">
+          <h3>Credentials</h3>
+          <ul>
+            <li><b>BSc (Hons) Information Technology</b>First Class — Middlesex University, 2025</li>
+            <li><b>Advanced Diploma, Software Engineering</b>Distinction, top 7% — Aptech, New Delhi</li>
+            <li><b>AWS Certified Cloud Practitioner</b>2025</li>
+            <li><b>The Odin Project</b>Full Stack JavaScript, 2023</li>
+          </ul>
+        </div>
+        <div class="side-block">
+          <h3>Also true</h3>
+          <ul>
+            <li>Taught JavaScript to around twenty secondary school students.</li>
+            <li>Completed the Civil Service Graduate Aspiration Programme.</li>
+            <li>Have worked in three countries and can spot a timezone problem before it happens.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="contact band" id="contact" aria-labelledby="contactTitle">
+    <div class="wrap g12">
+      <div class="contact-lead reveal">
+        <p class="eyebrow eyebrow--dot">Contact</p>
+        <h2 class="h-lg" id="contactTitle" style="margin-top:1.2rem;">Tell me what you're building.</h2>
+        <p class="lede" style="margin-top:1.3rem;">I'm open to junior and mid-level engineering roles in London — hybrid or remote — and to freelance work I can do properly alongside it. Email is the fastest way to reach me and I reply within a day.</p>
+
+        <!-- REPLACE: your email, in both the href and the visible text. -->
+        <a class="mail-link" href="mailto:pfasae@gmail.com?subject=Hello%20Peter">pfasae@gmail.com</a>
+
+        <div>
+          <button class="copy-btn" id="copyBtn" type="button" data-email="pfasae@gmail.com">Copy address</button>
+          <span class="vh" role="status" aria-live="polite" id="copyStatus"></span>
+        </div>
+      </div>
+
+      <!-- REPLACE: real URLs, and drop a PDF at /peter-fasae-cv.pdf -->
+      <div class="contact-side reveal d1">
+        <ul class="link-list">
+          <li><a href="https://github.com/PeterFasae" target="_blank" rel="noopener">GitHub <span>github.com/PeterFasae ↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/peter-fasae-5a7482b8/" target="_blank" rel="noopener">LinkedIn <span>/peter-fasae ↗</span></a></li>
+          <li><a href="/peter-fasae-cv.pdf" target="_blank" rel="noopener">Download CV <span>PDF ↗</span></a></li>
+        </ul>
+        <p class="mono-note" style="margin-top:1.5rem;">Based in London · Available hybrid or remote · References on request</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p>© <span id="year">2026</span> Peter Fasae — designed and built by hand.</p>
+    <a class="to-top" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Theme ----------
+     Follows the OS by default; a manual choice lasts for this visit.
+     TO REMEMBER IT ACROSS VISITS once this is on your own domain, add:
+       inside setTheme()  ->  try { localStorage.setItem('theme', mode); } catch (e) {}
+       just after init    ->  try { var s = localStorage.getItem('theme'); if (s) setTheme(s); } catch (e) {}
+  */
+  var themeBtn = document.getElementById('themeBtn');
+  function systemDark() { return window.matchMedia('(prefers-color-scheme: dark)').matches; }
+  function isDark() {
+    var set = root.getAttribute('data-theme');
+    return set === 'dark' ? true : set === 'light' ? false : systemDark();
+  }
+  function setTheme(mode) {
+    root.setAttribute('data-theme', mode);
+    themeBtn.setAttribute('aria-label', mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', mode === 'dark' ? '#131416' : '#EFEFEC');
+  }
+  setTheme(systemDark() ? 'dark' : 'light');
+  themeBtn.addEventListener('click', function () { setTheme(isDark() ? 'light' : 'dark'); });
+
+  /* ---------- Header hairline ---------- */
+  var head = document.getElementById('siteHead');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      head.setAttribute('data-scrolled', window.scrollY > 12 ? 'true' : 'false');
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Reveal on scroll ---------- */
+  var revealables = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(revealables, function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    Array.prototype.forEach.call(revealables, function (el) { io.observe(el); });
+  }
+
+  /* ---------- Count the numbers from old value to new ----------
+     The final value is already in the HTML, so this degrades to a
+     static number with JS off or reduced motion on. */
+  var counters = document.querySelectorAll('[data-count]');
+  function runCount(el) {
+    var from = parseFloat(el.getAttribute('data-from'));
+    var to = parseFloat(el.getAttribute('data-to'));
+    var dec = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1150, started = null;
+
+    function frame(ts) {
+      if (started === null) started = ts;
+      var p = Math.min((ts - started) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = (from + (to - from) * eased).toFixed(dec) + suffix;
+      if (p < 1) { window.requestAnimationFrame(frame); }
+      else { el.textContent = to.toFixed(dec) + suffix; }
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  if (!reduced && 'IntersectionObserver' in window) {
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { runCount(e.target); countIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    Array.prototype.forEach.call(counters, function (el) { countIO.observe(el); });
+  }
+
+  /* ---------- Active section in nav ---------- */
+  var navLinks = {};
+  ['work', 'about', 'contact'].forEach(function (id) {
+    navLinks[id] = document.querySelector('.nav a[href="#' + id + '"]');
+  });
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var link = navLinks[e.target.id];
+        if (!link || !e.isIntersecting) return;
+        Object.keys(navLinks).forEach(function (k) { if (navLinks[k]) navLinks[k].removeAttribute('aria-current'); });
+        link.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['work', 'about', 'contact'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) spy.observe(el);
+    });
+  }
+
+  /* ---------- Copy email ---------- */
+  var copyBtn = document.getElementById('copyBtn');
+  var copyStatus = document.getElementById('copyStatus');
+  var resetTimer;
+
+  copyBtn.addEventListener('click', function () {
+    var address = copyBtn.getAttribute('data-email');
+
+    function done() {
+      copyBtn.textContent = 'Copied';
+      copyBtn.setAttribute('data-copied', 'true');
+      copyStatus.textContent = 'Email address copied to clipboard.';
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(function () {
+        copyBtn.textContent = 'Copy address';
+        copyBtn.removeAttribute('data-copied');
+        copyStatus.textContent = '';
+      }, 2200);
+    }
+
+    function fallback() {
+      var field = document.createElement('textarea');
+      field.value = address;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.opacity = '0';
+      document.body.appendChild(field);
+      field.select();
+      try { document.execCommand('copy'); done(); }
+      catch (e) { copyBtn.textContent = 'Press Ctrl+C'; }
+      document.body.removeChild(field);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(address).then(done).catch(fallback);
+    } else { fallback(); }
+  });
+
+  /* ---------- Year ---------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
