@@ -1,0 +1,511 @@
+/* ==========================================================================
+   Peter Fasae — shared styles
+
+   Two type families, no framework, no build step. Monospace is the system
+   stack and only appears around code, so there is nothing tracked-out and
+   tiny anywhere in the reading experience.
+   ========================================================================== */
+
+:root {
+  --paper:     #efefec;
+  --raised:    #e7e7e2;
+  --ink:       #141618;
+  --ink-soft:  #34383d;
+  --muted:     #565b60;
+  --rule:      #d8d8d2;
+  --accent:    #8a2b33;
+  --invert-bg: #141618;
+  --invert-fg: #efefec;
+
+  --display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --body: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --measure: 64ch;
+  --page: 1080px;
+  --pad: clamp(1.25rem, 5vw, 3.5rem);
+  --section: clamp(4rem, 9vw, 7rem);
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --paper: #121316;
+  --raised: #191b1e;
+  --ink: #eceae6;
+  --ink-soft: #c6c8c6;
+  --muted: #9ba0a4;
+  --rule: #2b2e33;
+  --accent: #e08b91;
+  --invert-bg: #eceae6;
+  --invert-fg: #121316;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #121316;
+    --raised: #191b1e;
+    --ink: #eceae6;
+    --ink-soft: #c6c8c6;
+    --muted: #9ba0a4;
+    --rule: #2b2e33;
+    --accent: #e08b91;
+    --invert-bg: #eceae6;
+    --invert-fg: #121316;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 40rem) {
+  body { font-size: 1.125rem; }
+}
+
+/* Fraunces is a characterful face. WONK and a high SOFT are what make it look
+   mannered, so both are dialled down and it reads as a plain book serif. */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 1.15em; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+
+a { color: inherit; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection { background: var(--accent); color: var(--paper); }
+
+.skip {
+  position: absolute; left: 1rem; top: 1rem; z-index: 100;
+  transform: translateY(-250%);
+  background: var(--invert-bg); color: var(--invert-fg);
+  padding: 0.75rem 1.1rem; border-radius: 6px;
+  font-size: 0.95rem; text-decoration: none;
+}
+.skip:focus { transform: none; }
+
+.vh {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.section { padding-block: var(--section); }
+.section + .section { padding-top: 0; }
+
+.measure { max-width: var(--measure); }
+
+/* Label in the margin on wide screens, above the content on narrow ones.
+   One layout idea, used consistently, instead of a grid per section. */
+.band { display: grid; gap: clamp(1.5rem, 4vw, 3rem); }
+
+@media (min-width: 64rem) {
+  .band {
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+}
+
+.band-label {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+@media (min-width: 64rem) {
+  .band-label { padding-top: 0.55rem; }
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.site-head {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.site-head[data-scrolled='true'] { border-bottom-color: var(--rule); }
+
+.head-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 4rem;
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav { display: flex; align-items: center; gap: clamp(0.5rem, 2vw, 1.5rem); }
+
+.nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 1rem;
+  padding: 0.6rem 0.35rem;
+  transition: color 0.15s;
+}
+.nav a:hover, .nav a[aria-current='page'], .nav a[aria-current='true'] { color: var(--ink); }
+
+.theme-btn {
+  appearance: none; cursor: pointer;
+  width: 2.75rem; height: 2.75rem;
+  display: grid; place-items: center;
+  background: none; border: 0; color: var(--muted); border-radius: 50%;
+  transition: color 0.15s;
+}
+.theme-btn:hover { color: var(--ink); }
+.theme-btn svg { width: 1.15rem; height: 1.15rem; }
+.icon-moon { display: none; }
+[data-theme='dark'] .icon-sun { display: none; }
+[data-theme='dark'] .icon-moon { display: block; }
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero { padding-block: clamp(3.5rem, 10vw, 7rem) clamp(3rem, 8vw, 5.5rem); }
+
+.hero h1 {
+  font-size: clamp(2.1rem, 5.4vw, 3.4rem);
+  max-width: 20ch;
+  margin-bottom: 1.6rem;
+}
+
+.hero p {
+  font-size: clamp(1.1rem, 1.6vw, 1.25rem);
+  color: var(--ink-soft);
+  max-width: 54ch;
+}
+
+.hero-meta {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.6rem 1.4rem;
+  margin-top: 2.2rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.availability { display: inline-flex; align-items: center; gap: 0.55rem; }
+.availability::before {
+  content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%;
+  background: var(--accent); flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Work
+   -------------------------------------------------------------------------- */
+
+.work { display: grid; gap: clamp(3rem, 6vw, 4.5rem); }
+
+.work-item > h3 {
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  margin-bottom: 0.35rem;
+}
+
+.work-item .role {
+  display: block;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.work-item p { color: var(--ink-soft); max-width: var(--measure); }
+
+.work-links {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  margin-top: 1.1rem;
+}
+
+/* One link style everywhere: underline that thickens. No arrows that slide,
+   no borders that light up. */
+.link {
+  display: inline-block;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  padding-block: 0.35rem;
+  transition: text-decoration-thickness 0.15s;
+}
+.link:hover { text-decoration-thickness: 2px; }
+
+.link-muted { color: var(--muted); }
+
+.status-note {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: var(--measure);
+}
+
+/* --------------------------------------------------------------------------
+   Experience
+   -------------------------------------------------------------------------- */
+
+.roles { list-style: none; margin: 0; padding: 0; }
+
+.roles li {
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--rule);
+}
+.roles li:first-child { border-top: 0; padding-top: 0; }
+
+@media (min-width: 48rem) {
+  .roles li {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: 0.5rem 2rem;
+    align-items: baseline;
+  }
+}
+
+.roles .when {
+  color: var(--muted);
+  font-size: 0.98rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.roles h3 { font-size: 1.2rem; margin-bottom: 0.15rem; }
+
+.roles .where { color: var(--muted); font-size: 1rem; }
+
+.roles p {
+  margin-top: 0.7rem;
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  font-size: 1.02rem;
+}
+
+/* --------------------------------------------------------------------------
+   About + contact
+   -------------------------------------------------------------------------- */
+
+.about p { color: var(--ink-soft); max-width: var(--measure); }
+
+.study {
+  margin-top: 2.2rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: 0.9rem;
+  max-width: var(--measure);
+}
+
+.study div { font-size: 1.02rem; }
+.study strong { font-weight: 500; display: block; }
+.study span { color: var(--muted); font-size: 0.98rem; }
+
+.contact-mail {
+  display: inline-block;
+  font-family: var(--display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  margin: 0.5rem 0 1.4rem;
+  word-break: break-word;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 0.15rem;
+  transition: border-color 0.15s;
+}
+.contact-mail:hover { border-bottom-color: var(--accent); }
+
+.elsewhere {
+  display: flex; flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin-top: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-foot {
+  border-top: 1px solid var(--rule);
+  margin-top: var(--section);
+}
+
+.foot-inner {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 2rem;
+  justify-content: space-between; align-items: center;
+  padding-block: 2rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+.foot-inner p { margin: 0; }
+
+/* --------------------------------------------------------------------------
+   Case study
+   -------------------------------------------------------------------------- */
+
+.case-head { padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem); }
+
+.back {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  padding-block: 0.35rem;
+}
+.back:hover { color: var(--ink); }
+
+.case-head h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  max-width: 18ch;
+  margin-bottom: 1.2rem;
+}
+
+.case-lede {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  color: var(--ink-soft);
+  max-width: 56ch;
+}
+
+.case-facts {
+  display: flex; flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin-top: 2.4rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.case-facts div { font-size: 1rem; }
+.case-facts dt { color: var(--muted); margin-bottom: 0.15rem; }
+.case-facts dd { margin: 0; font-weight: 500; }
+
+.prose { max-width: var(--measure); }
+.prose h2 {
+  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.prose h3 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+}
+.prose p, .prose li { color: var(--ink-soft); }
+.prose ul { margin: 0 0 1.15em; padding-left: 1.2rem; }
+.prose li { margin-bottom: 0.5rem; }
+.prose strong { font-weight: 500; color: var(--ink); }
+
+/* A quote from the codebase, not decoration — used where the code says the
+   thing better than a paraphrase would. */
+.pull {
+  margin: 2rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+  font-family: var(--display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.pull cite {
+  display: block;
+  margin-top: 0.7rem;
+  font-family: var(--body);
+  font-size: 0.95rem;
+  font-style: normal;
+  color: var(--muted);
+}
+
+.snippet {
+  margin: 1.6rem 0;
+  padding: 1.1rem 1.25rem;
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.snippet code { white-space: pre; }
+
+.figure { margin: 2.4rem 0; }
+.figure img { border: 1px solid var(--rule); border-radius: 8px; }
+.figure figcaption {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: var(--measure);
+}
+
+.case-nav {
+  margin-top: var(--section);
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
