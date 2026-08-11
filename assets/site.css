@@ -148,12 +148,17 @@ img { max-width: 100%; height: auto; display: block; }
   }
 }
 
+/* A margin label, not a title. The serif belongs to things you read, so this
+   one drops back to the body face at body weight. */
 .band-label {
   margin: 0;
-  font-size: 0.95rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 1rem;
   font-weight: 500;
-  color: var(--muted);
+  line-height: 1.5;
   letter-spacing: 0;
+  color: var(--muted);
 }
 
 @media (min-width: 64rem) {

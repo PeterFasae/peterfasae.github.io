@@ -107,6 +107,13 @@ expect({ count, requests }).toEqual({ count: 0, requests: [] });</code></div>
         <cite>— from the comment on the recorder, explaining why it also answers convincingly enough for the real path to succeed</cite>
       </blockquote>
 
+      <figure class="figure">
+        <img src="assets/img/clarity-tests.png" width="2000" height="1294" loading="lazy" decoding="async"
+             alt="Terminal output from npm test: ten test files and 121 tests passing, including 'nothing reaches Anthropic, across every route that could have' and 'the recorder does see a request — so the zero above means something'.">
+        <figcaption>The suite as it runs. I write the test names as sentences because they're the
+          part anyone reads first, including me six months later.</figcaption>
+      </figure>
+
       <h2>When the provider misbehaves</h2>
       <p>Turning the feature on means depending on something outside the system, so the tests cover
         it failing in the three ways that actually happen:</p>
