@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Fraunces:opsz,wght@9..144,400..600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/site.css?v=4">
+<link rel="stylesheet" href="assets/site.css?v=5">
 
 <script type="application/ld+json">
 {
@@ -66,14 +66,28 @@
 <main id="main">
 
   <section class="hero wrap">
-    <h1>Software engineer in London, working mostly on the backend.</h1>
-    <p>APIs, data and tests. The parts I find interesting are the ones that never show up in the
-      interface: where a boundary sits, what happens when something you depend on fails, and how
-      you prove any of it actually holds.</p>
-    <p class="hero-meta">
-      <span class="availability">Looking for a backend or full-stack role</span>
-      <span>London, or remote</span>
-    </p>
+    <div class="hero-grid">
+      <div>
+        <h1>Software engineer in London, working mostly on the backend.</h1>
+        <p>APIs, data and tests. The parts I find interesting are the ones that never show up in
+          the interface: where a boundary sits, what happens when something you depend on fails,
+          and how you prove any of it actually holds.</p>
+
+        <p class="cta-row">
+          <a class="btn" href="#work">See the work</a>
+          <a class="btn btn-quiet" href="mailto:pfasae@gmail.com">Email me</a>
+        </p>
+
+        <p class="hero-meta">
+          <span class="availability">Looking for a backend or full-stack role</span>
+          <span>London, or remote</span>
+        </p>
+      </div>
+
+      <figure class="portrait">
+        <img src="me/portrait.jpg" width="900" height="900" alt="Peter Fasae" fetchpriority="high" decoding="async">
+      </figure>
+    </div>
   </section>
 
   <section class="section wrap" id="work" aria-labelledby="work-title">
@@ -83,7 +97,7 @@
 
         <article class="work-item">
           <h3>Clarity</h3>
-          <span class="role">Personal project, in development</span>
+          <span class="role">Personal project · 2025 to now · in development, not deployed</span>
           <p>A note-taking system for people with ADHD. Most of the engineering ended up going into
             one question that isn't really about notes: when is a note allowed to leave the system?</p>
           <p>I built it so a note can only reach a third-party AI service once someone has explicitly
@@ -99,7 +113,7 @@
 
         <article class="work-item">
           <h3>An Apple Pay checkout that only failed on iPhones</h3>
-          <span class="role">BlueBow Group, 2025</span>
+          <span class="role">BlueBow Group · 2025 · internship</span>
           <p>A payment SDK update went out and checkout kept working in desktop Chrome, so nothing
             looked wrong. On mobile Safari, Apple Pay failed. I ran the tests, traced it to a change
             in how the SDK processed the token, and supported the release of the compatibility fix.</p>
@@ -111,7 +125,7 @@
 
         <article class="work-item">
           <h3>Storage writes in a voting contract</h3>
-          <span class="role">Contribution to a group project</span>
+          <span class="role">Group project · 2024 · my contribution was the optimisation, not the Solidity</span>
           <p>A blockchain voting system built by a small team. The running tally was written back to
             contract storage on every pass of a loop, and persistent writes are the expensive
             operation on-chain. I worked out that it could accumulate in memory and be written once
@@ -181,13 +195,19 @@
     <div class="band">
       <h2 class="band-label" id="about-title">About</h2>
       <div class="about">
-        <p>I studied in New Delhi before London and worked through most of my degree, which is where
-          I learned to prioritise properly rather than as a personality trait. I like working with
-          other people on code — the best decisions I've been part of came out of someone asking the
-          question I'd been avoiding.</p>
-        <p>Outside work I co-ran a weekly coding club teaching JavaScript to secondary school
-          students, and I volunteer with Volunteers on Wheels delivering food and clothing to
-          community hubs.</p>
+        <p>Lagos, then New Delhi for a diploma, then London for the degree. I finished with a First
+          in Information Technology while leading shifts at Marks &amp; Spencer, working through
+          something like sixty customer problems a day. Retail doesn't leave you time to deliberate
+          — you fix what's actually in front of you and move to the next thing — and that reflex
+          has been more useful in engineering than I expected going in.</p>
+        <p>I've also started over in an unfamiliar place often enough that opening a codebase I
+          didn't write stopped being intimidating some time ago. You read it, work out which parts
+          actually matter, and get on with it.</p>
+        <p>I do my best work with someone else looking at the same problem — the decisions I'm
+          happiest with usually started with somebody asking the question I'd been quietly
+          avoiding. Outside of that I've taught JavaScript to a room of teenagers who mostly didn't
+          ask to be there, and most weekends I'm out with Volunteers on Wheels delivering food and
+          clothing around London.</p>
 
         <div class="study">
           <div>
@@ -239,6 +259,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=4" defer></script>
+<script src="assets/site.js?v=5" defer></script>
 </body>
 </html>

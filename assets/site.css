@@ -234,11 +234,56 @@ img { max-width: 100%; height: auto; display: block; }
 
 .hero { padding-block: clamp(3.5rem, 10vw, 7rem) clamp(3rem, 8vw, 5.5rem); }
 
+/* Text first, portrait second — so it reads in the right order on a phone
+   and on a screen reader, regardless of where the photo sits visually. */
+.hero-grid { display: grid; gap: clamp(2.25rem, 5vw, 4rem); align-items: center; }
+
+@media (min-width: 60rem) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 19rem); }
+}
+
 .hero h1 {
   font-size: clamp(2.1rem, 5.4vw, 3.4rem);
-  max-width: 20ch;
+  max-width: 18ch;
   margin-bottom: 1.6rem;
 }
+
+.portrait { margin: 0; max-width: 19rem; }
+.portrait img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+}
+.portrait figcaption {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* Two actions, not five. The first is what most people want, the second is
+   for the ones who already know they want to talk. */
+.cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+
+.btn {
+  display: inline-flex; align-items: center;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--invert-bg);
+  background: var(--invert-bg);
+  color: var(--invert-fg);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.btn:hover { opacity: 0.85; }
+
+.btn-quiet {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--rule);
+}
+.btn-quiet:hover { border-color: var(--ink); opacity: 1; }
 
 .hero p {
   font-size: clamp(1.1rem, 1.6vw, 1.25rem);
