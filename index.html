@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Fraunces:opsz,wght@9..144,400..600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/site.css?v=5">
+<link rel="stylesheet" href="assets/site.css?v=6">
 
 <script type="application/ld+json">
 {
@@ -50,7 +50,7 @@
 
 <header class="site-head">
   <div class="wrap head-inner">
-    <a class="wordmark" href="/">Peter Fasae</a>
+    <a class="wordmark" href="/">Peter Fasae<span class="mark" aria-hidden="true"></span></a>
     <nav class="nav" aria-label="Sections">
       <a class="nav-section" href="#work">Work</a>
       <a class="nav-section" href="#experience">Experience</a>
@@ -68,7 +68,7 @@
   <section class="hero wrap">
     <div class="hero-grid">
       <div>
-        <h1>Software engineer in London, working mostly on the backend.</h1>
+        <h1>Software engineer in London, working mostly on the <em>backend</em>.</h1>
         <p>APIs, data and tests. The parts I find interesting are the ones that never show up in
           the interface: where a boundary sits, what happens when something you depend on fails,
           and how you prove any of it actually holds.</p>
@@ -95,44 +95,62 @@
       <h2 class="band-label" id="work-title">Selected work</h2>
       <div class="work">
 
-        <article class="work-item">
-          <h3>Clarity</h3>
-          <span class="role">Personal project · 2025 to now · in development, not deployed</span>
-          <p>A note-taking system for people with ADHD. Most of the engineering ended up going into
-            one question that isn't really about notes: when is a note allowed to leave the system?</p>
-          <p>I built it so a note can only reach a third-party AI service once someone has explicitly
-            turned that on, and wrote a test that fails if a single request escapes while it's off.
-            Serverless on AWS: Lambda, API Gateway, DynamoDB and Cognito, with a React front end.
-            121 tests.</p>
-          <p class="status-note">Not deployed. The repository is private for now, so the case study
-            is the evidence rather than the code.</p>
-          <p class="work-links">
-            <a class="link" href="clarity.html">Read the engineering case study</a>
-          </p>
+        <article class="work-item work-item--flagship reveal">
+          <div class="work-mark" aria-hidden="true">
+            <span class="work-num">01</span>
+            <svg class="work-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.25"/><path d="M8.6 19.3v-3.1"/></svg>
+          </div>
+          <div>
+            <h3>Clarity</h3>
+            <span class="role">Personal project · 2025 to now · in development, not deployed</span>
+            <p>A note-taking system for people with ADHD. Most of the engineering ended up going into
+              one question that isn't really about notes: when is a note allowed to leave the system?</p>
+            <p>I built it so a note can only reach a third-party AI service once someone has explicitly
+              turned that on, and wrote a test that fails if a single request escapes while it's off.
+              Serverless on AWS: Lambda, API Gateway, DynamoDB and Cognito, with a React front end.
+              121 tests.</p>
+            <p class="status-note">Not deployed. The repository is private for now, so the case study
+              is the evidence rather than the code.</p>
+            <p class="work-links">
+              <a class="link" href="clarity.html">Read the engineering case study</a>
+            </p>
+          </div>
         </article>
 
-        <article class="work-item">
-          <h3>An Apple Pay checkout that only failed on iPhones</h3>
-          <span class="role">BlueBow Group · 2025 · internship</span>
-          <p>A payment SDK update went out and checkout kept working in desktop Chrome, so nothing
-            looked wrong. On mobile Safari, Apple Pay failed. I ran the tests, traced it to a change
-            in how the SDK processed the token, and supported the release of the compatibility fix.</p>
-          <p>The rest of the internship was integration work on a React and TypeScript product:
-            third-party authentication and analytics, Jest regression tests, developer onboarding
-            documentation, and device management across Intune, Jamf and Apple Business Manager.
-            Most of the specifics are confidential.</p>
+        <article class="work-item reveal">
+          <div class="work-mark" aria-hidden="true">
+            <span class="work-num">02</span>
+            <svg class="work-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h4l2.4-6.8 3.8 13.6 2.4-6.8H21"/></svg>
+          </div>
+          <div>
+            <h3>An Apple Pay checkout that only failed on iPhones</h3>
+            <span class="role">BlueBow Group · 2025 · internship</span>
+            <p>A payment SDK update went out and checkout kept working in desktop Chrome, so nothing
+              looked wrong. On mobile Safari, Apple Pay failed. I ran the tests, traced it to a change
+              in how the SDK processed the token, and supported the release of the compatibility fix.</p>
+            <p>The rest of the internship was integration work on a React and TypeScript product:
+              third-party authentication and analytics, Jest regression tests, developer onboarding
+              documentation, and device management across Intune, Jamf and Apple Business Manager.
+              Most of the specifics are confidential.</p>
+          </div>
         </article>
 
-        <article class="work-item">
-          <h3>Storage writes in a voting contract</h3>
-          <span class="role">Group project · 2024 · my contribution was the optimisation, not the Solidity</span>
-          <p>A blockchain voting system built by a small team. The running tally was written back to
-            contract storage on every pass of a loop, and persistent writes are the expensive
-            operation on-chain. I worked out that it could accumulate in memory and be written once
-            after the loop finished. Another contributor implemented it in Solidity.</p>
-          <p class="work-links">
-            <a class="link" href="https://github.com/lesley-ayemi/blockchain-voting" target="_blank" rel="noopener">The project on GitHub</a>
-          </p>
+        <article class="work-item reveal">
+          <div class="work-mark" aria-hidden="true">
+            <span class="work-num">03</span>
+            <svg class="work-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="6" r="2"/><path d="M7.7 16.5 10.5 7.8M16.3 16.5 13.5 7.8M8 18h8"/></svg>
+          </div>
+          <div>
+            <h3>Storage writes in a voting contract</h3>
+            <span class="role">Group project · 2024 · my contribution was the optimisation, not the Solidity</span>
+            <p>A blockchain voting system built by a small team. The running tally was written back to
+              contract storage on every pass of a loop, and persistent writes are the expensive
+              operation on-chain. I worked out that it could accumulate in memory and be written once
+              after the loop finished. Another contributor implemented it in Solidity.</p>
+            <p class="work-links">
+              <a class="link" href="https://github.com/lesley-ayemi/blockchain-voting" target="_blank" rel="noopener">The project on GitHub</a>
+            </p>
+          </div>
         </article>
 
       </div>
@@ -227,6 +245,12 @@
     </div>
   </section>
 
+  <aside class="pull-stmt wrap reveal" aria-hidden="true">
+    <span class="mark"></span>
+    <p>Retail doesn't leave you time to deliberate — you fix what's actually in front of you and
+      move to the next thing.</p>
+  </aside>
+
   <section class="section wrap" id="contact" aria-labelledby="contact-title">
     <div class="band">
       <h2 class="band-label" id="contact-title">Contact</h2>
@@ -254,11 +278,11 @@
 
 <footer class="site-foot">
   <div class="wrap foot-inner">
-    <p>© <span id="year">2026</span> Peter Fasae</p>
+    <p><span class="mark" aria-hidden="true"></span>© <span id="year">2026</span> Peter Fasae</p>
     <p>London</p>
   </div>
 </footer>
 
-<script src="assets/site.js?v=5" defer></script>
+<script src="assets/site.js?v=6" defer></script>
 </body>
 </html>
