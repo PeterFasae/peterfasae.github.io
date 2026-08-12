@@ -21,7 +21,8 @@
   --body: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --measure: 64ch;
+  /* Lands around 68 characters per line at the desktop body size, measured. */
+  --measure: 60ch;
   --page: 1080px;
   --pad: clamp(1.25rem, 5vw, 3.5rem);
   --section: clamp(4rem, 9vw, 7rem);
@@ -192,6 +193,7 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: -0.02em;
   text-decoration: none;
   white-space: nowrap;
+  padding-block: 0.5rem;
 }
 
 .nav { display: flex; align-items: center; gap: clamp(0.5rem, 2vw, 1.5rem); }
@@ -204,6 +206,14 @@ img { max-width: 100%; height: auto; display: block; }
   transition: color 0.15s;
 }
 .nav a:hover, .nav a[aria-current='page'], .nav a[aria-current='true'] { color: var(--ink); }
+
+/* Below ~30rem the name, three section links and the theme toggle need about
+   54px more than the viewport has. The page is five short sections, so the
+   section links are the part worth losing — Contact is the one that does a
+   job. A hamburger for three links would be more machinery than the problem. */
+@media (max-width: 30rem) {
+  .nav-section { display: none; }
+}
 
 .theme-btn {
   appearance: none; cursor: pointer;
@@ -284,7 +294,8 @@ img { max-width: 100%; height: auto; display: block; }
   text-decoration-color: var(--accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
-  padding-block: 0.35rem;
+  /* Enough to clear a 44px tap target at the body size. */
+  padding-block: 0.5rem;
   transition: text-decoration-thickness 0.15s;
 }
 .link:hover { text-decoration-thickness: 2px; }
@@ -412,7 +423,7 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
   text-decoration: none;
   font-size: 1rem;
   margin-bottom: 2rem;
-  padding-block: 0.35rem;
+  padding-block: 0.6rem;
 }
 .back:hover { color: var(--ink); }
 
