@@ -214,14 +214,14 @@
             <p class="kicker">TypeScript · React · TanStack Query</p>
             <h3 id="dashboard-title">A dashboard's data fetching, before and after</h3>
             <p class="badge">Reconstruction, written from scratch with a simulated API. Not company code.</p>
-            <p class="lede">One dashboard screen calling the same API two ways, with a toggle between
-              them. The only thing that changes is how the data is asked for.</p>
+            <p class="lede">One dashboard screen calling the same simulated API two ways, with a toggle
+              between them and a counter for every call.</p>
 
             <dl class="facts">
               <div><dt>Before</dt><dd>Each panel fetches on mount: one endpoint requested twice, a request that waits for its parent's to finish, and nothing kept between tabs</dd></div>
               <div><dt>After</dt><dd>A shared query layer: one request per endpoint, all started together, and cached across tabs</dd></div>
               <div><dt>In the demo</dt><dd>The overview makes six API calls before and four after. Going back to a tab makes none.</dd></div>
-              <div><dt>How it's counted</dt><dd>An on-screen request counter, with React StrictMode left off so development double-mounting can't inflate only the "before" count</dd></div>
+              <div><dt>How it's counted</dt><dd>Tests that click through the app and check every request, plus the on-screen counter. React StrictMode is left off because it would double only the "before" count, and a test shows that too</dd></div>
             </dl>
 
             <p class="work-links">
