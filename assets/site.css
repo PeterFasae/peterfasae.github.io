@@ -880,12 +880,74 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 .case-facts dt { color: var(--muted); margin-bottom: 0.15rem; }
 .case-facts dd { margin: 0; font-weight: 500; }
 
+/* Three sentences for someone with two minutes: the problem, the proof, the
+   status. Everything below is the long version of the same three things. */
+.in-short {
+  max-width: 62ch;
+  margin-top: 2.2rem;
+  padding: clamp(1.1rem, 3vw, 1.6rem) clamp(1.1rem, 3vw, 1.75rem);
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  border-radius: 8px;
+}
+.in-short h2,
+.toc-title {
+  margin-bottom: 0.6rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.in-short ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.in-short li { color: var(--ink-soft); font-size: 1.02rem; }
+.in-short strong { color: var(--ink); font-weight: 500; }
+
+/* The contents sit in the same margin the homepage uses for its section
+   labels, and stay in view while the essay scrolls past. */
+.case-body { display: grid; gap: 2.25rem; }
+.case-head + .case-body { padding-top: clamp(2rem, 5vw, 3.5rem); }
+
+@media (min-width: 64rem) {
+  .case-body {
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .toc { position: sticky; top: 5.5rem; }
+}
+
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a {
+  display: flex;
+  gap: 0.6rem;
+  padding-block: 0.3rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  padding-top: 0.15em;
+  font-family: var(--mono);
+  font-size: 0.8em;
+  color: var(--accent);
+}
+.toc a:hover { color: var(--ink); }
+
 .prose { max-width: var(--measure); }
+/* Each heading starts a new part of the argument, so it gets clear space
+   above it rather than sitting as close to the last paragraph as the next. */
 .prose h2 {
   font-size: clamp(1.5rem, 2.6vw, 1.95rem);
-  margin-top: 0;
+  margin-top: clamp(2.5rem, 5vw, 3.25rem);
   margin-bottom: 1rem;
 }
+.prose > h2:first-child { margin-top: 0; }
 .prose h3 {
   font-size: 1.2rem;
   margin-top: 2rem;
