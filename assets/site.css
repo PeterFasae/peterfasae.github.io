@@ -405,15 +405,13 @@ main { counter-reset: section; }
   color: var(--muted);
 }
 
-.availability { display: inline-flex; align-items: center; gap: 0.55rem; }
+/* A still dot. It used to pulse, which is the one thing on the page that
+   moved without being asked to. */
+.availability { display: inline-flex; align-items: baseline; gap: 0.55rem; }
 .availability::before {
   content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%;
   background: var(--accent); flex: none;
-  animation: pulse-dot 2.6s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
-  50% { box-shadow: 0 0 0 5px transparent; }
+  transform: translateY(-0.1em);
 }
 
 /* --------------------------------------------------------------------------
@@ -754,20 +752,8 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
    Motion
    -------------------------------------------------------------------------- */
 
-/* Below-the-fold reveal, restricted to the work items and the pulled
-   statement rather than every element on the page — applied everywhere it
-   just becomes another template tic. The hidden state only ever exists
-   under .js-reveal-ready, which JS adds in the same breath as starting the
-   observer, so there is never a moment where something is hidden and
-   nothing is watching it. No JS, no observer, or reduced motion: every
-   .reveal element is just visible, full stop. */
-.js-reveal-ready .reveal {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.js-reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
-
+/* What's left is hover and focus feedback and the theme icon swap. Nothing
+   moves on its own, and with reduced motion even those are instant. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
