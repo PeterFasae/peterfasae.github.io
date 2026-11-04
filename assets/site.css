@@ -907,7 +907,10 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 
 /* The contents sit in the same margin the homepage uses for its section
    labels, and stay in view while the essay scrolls past. */
-.case-body { display: grid; gap: 2.25rem; }
+/* minmax(0, 1fr), not the implicit auto column: a code snippet's unbroken
+   lines would otherwise set the column's minimum width and push the whole
+   page sideways on a phone, instead of scrolling inside their own box. */
+.case-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.25rem; }
 .case-head + .case-body { padding-top: clamp(2rem, 5vw, 3.5rem); }
 
 @media (min-width: 64rem) {
