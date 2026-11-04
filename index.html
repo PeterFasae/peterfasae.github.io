@@ -111,14 +111,14 @@
               one question that isn't really about notes: when is a note allowed to leave the system?</p>
             <p>I built it so a note can only reach a third-party AI service once someone has explicitly
               turned that on, and wrote a test that fails if a single request escapes while it's off.
-              Serverless on AWS: Lambda, API Gateway, DynamoDB and Cognito, with a React front end.
-              121 tests.</p>
-            <p class="status-note">Not deployed. The full implementation is private, but a companion
-              repository has the real decisions log, the real infrastructure, and a
-              dependency-free piece of it, the retrieval engine, that runs and passes on its own.</p>
+              The current code is JavaScript Lambda handlers on the Serverless Framework, with API
+              Gateway, DynamoDB, Cognito and a React front end. Moving the infrastructure to AWS CDK
+              in TypeScript is decided but not built yet. 270 tests, all passing on 4 November 2026.</p>
+            <p class="status-note">Not deployed. The full source is public on GitHub: the code, the
+              tests, and the decision records behind them.</p>
             <p class="work-links">
               <a class="link" href="clarity.html">Read the engineering case study</a>
-              <a class="link" href="https://github.com/PeterFasae/clarity-architecture" target="_blank" rel="noopener">The evidence repo</a>
+              <a class="link" href="https://github.com/PeterFasae/clarity" target="_blank" rel="noopener">The source on GitHub</a>
             </p>
           </div>
         </article>

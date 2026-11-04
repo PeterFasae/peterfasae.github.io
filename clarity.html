@@ -59,9 +59,9 @@
 
     <dl class="case-facts">
       <div><dt>Built by</dt><dd>Me</dd></div>
-      <div><dt>Stack</dt><dd>Node, Lambda, API Gateway, DynamoDB, Cognito, React</dd></div>
-      <div><dt>Tests</dt><dd>121, passing</dd></div>
-      <div><dt>Status</dt><dd>Not deployed</dd></div>
+      <div><dt>Stack</dt><dd>Node, Serverless Framework, Lambda, API Gateway, DynamoDB, Cognito, React</dd></div>
+      <div><dt>Tests</dt><dd>270, passing on 4 November 2026</dd></div>
+      <div><dt>Status</dt><dd>In development, not deployed</dd></div>
     </dl>
   </div>
 
@@ -112,9 +112,11 @@ expect({ count, requests }).toEqual({ count: 0, requests: [] });</code></div>
 
       <figure class="figure">
         <img src="assets/img/clarity-tests.png" width="2000" height="1294" loading="lazy" decoding="async"
-             alt="Terminal output from npm test: ten test files and 121 tests passing, including 'nothing reaches Anthropic, across every route that could have' and 'the recorder does see a request — so the zero above means something'.">
-        <figcaption>The suite as it runs. I write the test names as sentences because they're the
-          part anyone reads first, including me six months later.</figcaption>
+             alt="Terminal output from an earlier run of npm test, in August 2026: ten test files and 121 tests passing, including 'nothing reaches Anthropic, across every route that could have' and 'the recorder does see a request — so the zero above means something'.">
+        <figcaption>An earlier run, from August 2026, when the suite had 121 tests. It had 270 on
+          4 November 2026, and both of these tests are still in it. I write the test names as
+          sentences because they're the part anyone reads first, including me six months
+          later.</figcaption>
       </figure>
 
       <h2>When the provider misbehaves</h2>
@@ -137,9 +139,16 @@ expect({ count, requests }).toEqual({ count: 0, requests: [] });</code></div>
         else's from every direction: read it, read its summary, update it, re-summarise it, delete
         it, list it, search for it, export it. Ten tests, and the ones that matter most are the
         listing and search cases — a wall on the direct route is easy, but data leaks sideways.</p>
-      <p>A note that doesn't exist returns 404. So does a note that exists and belongs to someone
-        else. Returning 403 for the second would confirm it exists, which is a small leak that costs
-        nothing to avoid.</p>
+      <p>A note that doesn't exist returns 404. A note that exists and belongs to someone else
+        returns 403, with a message that says so. Answering 404 for both is the more cautious
+        default in general, because a 403 confirms the note is there. Here a note's id is a random
+        UUID that nobody else can guess, so there's nothing to enumerate, and keeping the two apart
+        makes both the failure and the tests that pin it unambiguous: five ask for another user's
+        note and expect 403, and two ask for one that was never created and expect 404.</p>
+      <p>Delete gets the same answer without reading the note first. The delete itself is
+        conditional on ownership, and when the condition fails DynamoDB hands back the item it
+        refused to touch, so the function can tell 403 from 404 with an IAM role that allows
+        nothing but <code>DeleteItem</code>.</p>
 
       <h2>The CORS test that was lying</h2>
       <p>The API answers a fixed allowlist of origins, and there's no code path in the service that
@@ -151,13 +160,16 @@ expect({ count, requests }).toEqual({ count: 0, requests: [] });</code></div>
         its own CORS headers, so the emulator was echoing back origins my handler had never
         approved — and no combination of flags turned it off. The assertion was measuring the
         emulator, not my code.</p>
-      <p>So the guarantee moved to a unit test that calls the response builder directly, plus two
+      <p>So the guarantee moved to unit tests that call the response builder directly, plus three
         checks that go through the emulator's Lambda-invocation endpoint, which returns the raw
-        handler response with nothing added. On a real API Gateway, a proxy integration passes the
-        handler's headers through untouched, which is what those tests now pin.</p>
+        handler response with nothing added. The emulator is also pointed at the same allowlist
+        now, so it can't answer for an origin the real gateway never would. On a real API Gateway,
+        a proxy integration passes the handler's headers through untouched, which is what those
+        tests now pin.</p>
 
       <h2>What I measured, and what it doesn't show</h2>
-      <p>Over a seeded 500-note corpus, 100 samples after 20 warm-ups, against DynamoDB Local:</p>
+      <p>Over a seeded 500-note corpus, 100 samples after 20 warm-ups, against
+        <code>serverless offline</code> and DynamoDB Local on my laptop:</p>
 
       <div class="snippet"><code>createNote        avg 2.7ms   p95 3.5ms
 getNotes (list)   avg 4.2ms   p95 5.3ms
@@ -177,23 +189,30 @@ summarize         avg 4.1ms   p95 5.4ms</code></div>
         the scorer can be swapped without touching a caller.</p>
 
       <h2>Where it stands</h2>
-      <p>Nothing is deployed. <code>serverless package</code> runs clean for both stacks, but a real
-        deploy needs AWS credentials this build doesn't have, so it hasn't happened.</p>
+      <p>Nothing is deployed. The code today is JavaScript Lambda handlers defined with the
+        Serverless Framework, and <code>serverless package</code> runs clean for both stages, dev
+        and prod, but a real deploy hasn't happened.</p>
+      <p>I've since decided where it goes next, and written each decision up in the repository:
+        the infrastructure moves to AWS CDK in TypeScript, on Node.js 24 in the London region, and
+        the tests move off <code>serverless offline</code> onto an in-process rig. None of that is
+        built yet, so everything above describes the Serverless version as it stands.</p>
       <p>The repo keeps a status file listing every feature as built, in progress or planned, and the
         rule is that public copy can only describe something in the present tense once it says
         <code>built</code>. Nothing is marked built, because nothing is deployed. That rule is why
         this page says a test exists and a feature works in the codebase, rather than saying Clarity
         does things for people — it doesn't yet, and I'd rather write the constraint down than
         remember to be careful.</p>
-      <p>The full implementation is private for the moment. What's above is drawn from a
+      <p>The full implementation is public in the
+        <a class="link" href="https://github.com/PeterFasae/clarity" target="_blank" rel="noopener">Clarity repository</a>,
+        with the code, the tests, the decision records and the status file, so everything on this
+        page can be checked against the source. Before that repository was public I put together a
         <a class="link" href="https://github.com/PeterFasae/clarity-architecture" target="_blank" rel="noopener">companion repository</a>
-        with the real decisions log, the real infrastructure definition, the privacy-boundary test
-        exactly as it runs, and the retrieval engine — which is dependency-free enough to clone and
-        run on its own; its 25 tests genuinely pass there, right now.</p>
+        as evidence. It's a snapshot from August 2026 and older than the main repository, which is
+        the one to read.</p>
 
       <p class="case-nav elsewhere">
         <a class="link" href="/#work">← Back to work</a>
-        <a class="link" href="https://github.com/PeterFasae/clarity-architecture" target="_blank" rel="noopener">The evidence repo</a>
+        <a class="link" href="https://github.com/PeterFasae/clarity" target="_blank" rel="noopener">The source on GitHub</a>
         <a class="link" href="mailto:pfasae@gmail.com">Ask me about it</a>
       </p>
 
