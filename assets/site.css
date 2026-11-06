@@ -168,8 +168,11 @@ img { max-width: 100%; height: auto; display: block; }
 
 .section { padding-block: var(--section); }
 .section + .section,
-.section + .pull-stmt,
-.pull-stmt + .section { padding-top: 0; }
+.section + .pull-stmt { padding-top: 0; }
+
+/* Contact opens with a display-size line of its own, so it needs air between
+   it and the pulled statement or the two big serif blocks read as one. */
+.pull-stmt + .section { padding-top: clamp(3rem, 7vw, 5rem); }
 
 .measure { max-width: var(--measure); }
 
@@ -273,11 +276,24 @@ main { counter-reset: section; }
 .nav a[aria-current='page']::after,
 .nav a[aria-current='true']::after { transform: scaleX(1); }
 
-/* Below ~30rem the name, three section links and the theme toggle need about
-   54px more than the viewport has. The page is five short sections, so the
-   section links are the part worth losing — Contact is the one that does a
-   job. A hamburger for three links would be more machinery than the problem. */
-@media (max-width: 30rem) {
+/* Contact is the one link that does a job, so it's drawn as a quiet button and
+   is the only one that survives on a phone. */
+.nav .nav-cta {
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  margin-left: 0.25rem;
+  transition: border-color 0.15s;
+}
+.nav .nav-cta::after { display: none; }
+.nav .nav-cta:hover,
+.nav .nav-cta[aria-current='true'] { border-color: var(--accent); }
+
+/* Below ~40rem the name, three section links, the Contact button and the
+   toggle don't fit on one line. The section links are the part worth losing.
+   A hamburger for three links would be more machinery than the problem. */
+@media (max-width: 40rem) {
   .nav-section { display: none; }
 }
 
@@ -310,7 +326,7 @@ main { counter-reset: section; }
    Hero
    -------------------------------------------------------------------------- */
 
-.hero { padding-block: clamp(3.5rem, 10vw, 7rem) clamp(3rem, 8vw, 5.5rem); }
+.hero { padding-block: clamp(3rem, 9vw, 6rem) clamp(2rem, 6vw, 4rem); }
 
 /* Text first, portrait second — so it reads in the right order on a phone
    and on a screen reader, regardless of where the photo sits visually. */
@@ -318,6 +334,27 @@ main { counter-reset: section; }
 
 @media (min-width: 60rem) {
   .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 19rem); }
+}
+
+/* The positioning, said once and quietly, above the headline rather than
+   inside it. A list so a screen reader hears three things, not one run-on. */
+.eyebrow {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.35rem 0;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+.eyebrow li { display: inline-flex; align-items: center; }
+.eyebrow li + li::before {
+  content: '';
+  width: 0.3rem; height: 0.3rem;
+  margin-inline: 0.75rem;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .hero h1 {
@@ -391,7 +428,7 @@ main { counter-reset: section; }
 }
 .btn-quiet:hover { border-color: var(--ink); opacity: 1; }
 
-.hero p {
+.hero-lede {
   font-size: clamp(1.1rem, 1.6vw, 1.25rem);
   color: var(--ink-soft);
   max-width: 54ch;
@@ -405,15 +442,13 @@ main { counter-reset: section; }
   color: var(--muted);
 }
 
-.availability { display: inline-flex; align-items: center; gap: 0.55rem; }
+/* A still dot. It used to pulse, which is the one thing on the page that
+   moved without being asked to. */
+.availability { display: inline-flex; align-items: baseline; gap: 0.55rem; }
 .availability::before {
   content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%;
   background: var(--accent); flex: none;
-  animation: pulse-dot 2.6s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
-  50% { box-shadow: 0 0 0 5px transparent; }
+  transform: translateY(-0.1em);
 }
 
 /* --------------------------------------------------------------------------
@@ -426,17 +461,20 @@ main { counter-reset: section; }
    the section-level margin label repeating per row. Clarity is given more
    room and a filled-in numeral — the one thing on the page allowed to look
    heavier than everything around it, because it is. */
+/* On a phone the numeral sits above the text rather than beside it. The
+   column it used to take cost the facts and lists a fifth of their width. */
 .work-item {
   display: grid;
-  grid-template-columns: minmax(0, 3.6rem) minmax(0, 1fr);
-  gap: 1.1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.6rem;
 }
+
+.work-mark { display: flex; align-items: center; gap: 0.9rem; }
 
 @media (min-width: 40rem) {
   .work-item { grid-template-columns: minmax(0, 5.5rem) minmax(0, 1fr); gap: 1.75rem; }
+  .work-mark { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
 }
-
-.work-mark { display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem; }
 
 .work-num {
   font-family: var(--display);
@@ -467,21 +505,81 @@ main { counter-reset: section; }
   }
 }
 .work-item--flagship .work-icon { width: 1.7rem; height: 1.7rem; opacity: 1; }
-.work-item--flagship h3 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); }
 
-.work-item > h3 {
-  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
-  margin-bottom: 0.35rem;
+.work-item h3 {
+  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+  margin-bottom: 0.9rem;
 }
-
-.work-item .role {
-  display: block;
-  font-size: 1rem;
-  color: var(--muted);
-  margin-bottom: 1rem;
-}
+.work-item--flagship h3 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); }
+.work-item--minor h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 
 .work-item p { color: var(--ink-soft); max-width: var(--measure); }
+
+/* The line above a title: who it was for, when, and on what terms. */
+.kicker,
+.work-item .kicker {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.work-item .lede { font-size: clamp(1.05rem, 1.4vw, 1.15rem); }
+
+/* Says what something is before anyone reads about it. Used for the one
+   reconstruction on the page, so it can't be mistaken for production code. */
+.work-item .badge {
+  display: inline-block;
+  margin: 0 0 1.1rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* The facts a reviewer checks first, set as ruled rows rather than cards:
+   a label they can scan down, and the claim beside it. */
+.facts {
+  margin: 1.5rem 0 1.75rem;
+  max-width: var(--measure);
+  border-top: 1px solid var(--rule);
+}
+.facts div {
+  display: grid;
+  gap: 0.1rem;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 40rem) {
+  .facts div { grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr); gap: 1.25rem; }
+}
+.facts dt { color: var(--muted); font-size: 0.95rem; padding-top: 0.05rem; }
+.facts dd { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink); }
+
+.shows-title {
+  margin: 0 0 0.6rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.shows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+  max-width: var(--measure);
+}
+.shows li { position: relative; padding-left: 1.35rem; color: var(--ink-soft); }
+.shows li::before {
+  content: '';
+  position: absolute; left: 0.1rem; top: 0.8em;
+  width: 0.6rem; height: 1.5px;
+  background: var(--accent);
+}
 
 .work-links {
   display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
@@ -514,12 +612,67 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 
 .link-muted { color: var(--muted); }
 
-.status-note {
-  margin-top: 0.9rem;
-  font-size: 0.95rem;
-  color: var(--muted);
+.section-intro {
   max-width: var(--measure);
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--ink-soft);
 }
+
+/* --------------------------------------------------------------------------
+   Where I fit
+   -------------------------------------------------------------------------- */
+
+/* Three rows, read like a table: what the role needs on the left, where on
+   the page it's shown on the right. One identity, three ways into it. */
+.paths { list-style: none; margin: 0; padding: 0; }
+
+.path {
+  display: grid;
+  gap: 0.9rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+.path:last-child { border-bottom: 1px solid var(--rule); }
+
+@media (min-width: 48rem) {
+  .path {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 13rem);
+    gap: 2.5rem;
+    align-items: start;
+  }
+}
+
+.path h3 { font-size: clamp(1.25rem, 2vw, 1.45rem); margin-bottom: 0.5rem; }
+.path p { color: var(--ink-soft); max-width: var(--measure); }
+
+.path-evidence ul { list-style: none; margin: 0; padding: 0; }
+.path-evidence .link { padding-block: 0.4rem; }
+.path-label {
+  margin: 0 0 0.1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Commercial work
+   -------------------------------------------------------------------------- */
+
+.cases { display: grid; }
+
+@media (min-width: 48rem) {
+  .cases {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.75rem, 4vw, 3rem);
+  }
+}
+
+.case {
+  padding-block: 1.5rem 1.75rem;
+  border-top: 1px solid var(--rule);
+}
+.case h3 { font-size: clamp(1.2rem, 1.9vw, 1.4rem); margin-bottom: 0.7rem; }
+.case p { color: var(--ink-soft); font-size: 1.02rem; }
+.case .kicker { font-size: 0.92rem; }
 
 /* --------------------------------------------------------------------------
    Experience
@@ -528,7 +681,7 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 .roles { list-style: none; margin: 0; padding: 0; }
 
 .roles li {
-  padding-block: 1.6rem;
+  padding-block: 1.3rem;
   border-top: 1px solid var(--rule);
 }
 .roles li:first-child { border-top: 0; padding-top: 0; }
@@ -553,18 +706,19 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 .roles .where { color: var(--muted); font-size: 1rem; }
 
 .roles p {
-  margin-top: 0.7rem;
+  margin-top: 0.5rem;
   margin-bottom: 0;
   color: var(--ink-soft);
   max-width: var(--measure);
   font-size: 1.02rem;
 }
+.roles .where { margin-top: 0; }
 
 /* --------------------------------------------------------------------------
    About + contact
    -------------------------------------------------------------------------- */
 
-.about p { color: var(--ink-soft); max-width: var(--measure); }
+.about > p { color: var(--ink-soft); max-width: var(--measure); }
 
 .study {
   margin-top: 2.2rem;
@@ -575,9 +729,50 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
   max-width: var(--measure);
 }
 
+.study-title {
+  margin-bottom: 0.2rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
 .study div { font-size: 1.02rem; }
 .study strong { font-weight: 500; display: block; }
 .study span { color: var(--muted); font-size: 0.98rem; }
+
+/* Grouped by the three kinds of role above, so each reader finds their list. */
+.skills {
+  margin: 2.2rem 0 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: 1rem;
+  max-width: var(--measure);
+}
+.skills div { display: grid; gap: 0.15rem; }
+@media (min-width: 40rem) {
+  .skills div { grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr); gap: 1.25rem; }
+}
+.skills dt { font-weight: 500; }
+.skills dd { margin: 0; color: var(--ink-soft); font-size: 1.02rem; }
+
+/* The question a recruiter is already asking, set in the display face so the
+   end of the page reads as an invitation rather than a footer. */
+.contact-lede {
+  max-width: 22ch;
+  margin-bottom: 1.2rem;
+  font-family: var(--display);
+  font-variation-settings: 'SOFT' 0, 'WONK' 0;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.contact .measure { color: var(--ink-soft); }
 
 /* A sentence already said in About, pulled out and set large — the
    print-magazine trick of reprinting a line from the copy at a size that
@@ -643,6 +838,7 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 }
 .foot-inner p { margin: 0; display: inline-flex; align-items: center; gap: 0.6rem; }
 .foot-inner .mark { --mark: 0.6rem; }
+.foot-inner .foot-links { flex-wrap: wrap; gap: 0 1.4rem; }
 
 /* --------------------------------------------------------------------------
    Case study
@@ -684,12 +880,77 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
 .case-facts dt { color: var(--muted); margin-bottom: 0.15rem; }
 .case-facts dd { margin: 0; font-weight: 500; }
 
+/* Three sentences for someone with two minutes: the problem, the proof, the
+   status. Everything below is the long version of the same three things. */
+.in-short {
+  max-width: 62ch;
+  margin-top: 2.2rem;
+  padding: clamp(1.1rem, 3vw, 1.6rem) clamp(1.1rem, 3vw, 1.75rem);
+  background: var(--raised);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  border-radius: 8px;
+}
+.in-short h2,
+.toc-title {
+  margin-bottom: 0.6rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.in-short ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.in-short li { color: var(--ink-soft); font-size: 1.02rem; }
+.in-short strong { color: var(--ink); font-weight: 500; }
+
+/* The contents sit in the same margin the homepage uses for its section
+   labels, and stay in view while the essay scrolls past. */
+/* minmax(0, 1fr), not the implicit auto column: a code snippet's unbroken
+   lines would otherwise set the column's minimum width and push the whole
+   page sideways on a phone, instead of scrolling inside their own box. */
+.case-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.25rem; }
+.case-head + .case-body { padding-top: clamp(2rem, 5vw, 3.5rem); }
+
+@media (min-width: 64rem) {
+  .case-body {
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .toc { position: sticky; top: 5.5rem; }
+}
+
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a {
+  display: flex;
+  gap: 0.6rem;
+  padding-block: 0.3rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  padding-top: 0.15em;
+  font-family: var(--mono);
+  font-size: 0.8em;
+  color: var(--accent);
+}
+.toc a:hover { color: var(--ink); }
+
 .prose { max-width: var(--measure); }
+/* Each heading starts a new part of the argument, so it gets clear space
+   above it rather than sitting as close to the last paragraph as the next. */
 .prose h2 {
   font-size: clamp(1.5rem, 2.6vw, 1.95rem);
-  margin-top: 0;
+  margin-top: clamp(2.5rem, 5vw, 3.25rem);
   margin-bottom: 1rem;
 }
+.prose > h2:first-child { margin-top: 0; }
 .prose h3 {
   font-size: 1.2rem;
   margin-top: 2rem;
@@ -754,20 +1015,8 @@ button.link { background: none; border: 0; font: inherit; cursor: pointer; }
    Motion
    -------------------------------------------------------------------------- */
 
-/* Below-the-fold reveal, restricted to the work items and the pulled
-   statement rather than every element on the page — applied everywhere it
-   just becomes another template tic. The hidden state only ever exists
-   under .js-reveal-ready, which JS adds in the same breath as starting the
-   observer, so there is never a moment where something is hidden and
-   nothing is watching it. No JS, no observer, or reduced motion: every
-   .reveal element is just visible, full stop. */
-.js-reveal-ready .reveal {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.js-reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
-
+/* What's left is hover and focus feedback and the theme icon swap. Nothing
+   moves on its own, and with reduced motion even those are instant. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
