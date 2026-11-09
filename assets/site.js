@@ -98,25 +98,38 @@
     var label = copyBtn.textContent;
     var timer;
 
+    var feedback = function (buttonText, announcement) {
+      copyBtn.textContent = buttonText;
+      if (status) status.textContent = announcement;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        copyBtn.textContent = label;
+        if (status) status.textContent = '';
+      }, 3200);
+    };
+
+    var selectAddress = function () {
+      var addressLink = document.querySelector('.contact-mail');
+      if (addressLink && window.getSelection && document.createRange) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(addressLink);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        feedback('Address selected', 'Email address selected. Use your device\'s Copy command.');
+      } else {
+        feedback('Copy unavailable', 'Clipboard access is unavailable. Use the email link above to compose a message.');
+      }
+    };
+
     copyBtn.addEventListener('click', function () {
       var address = copyBtn.getAttribute('data-email');
-
-      var done = function () {
-        copyBtn.textContent = 'Copied';
-        if (status) status.textContent = 'Email address copied to clipboard.';
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          copyBtn.textContent = label;
-          if (status) status.textContent = '';
-        }, 2400);
-      };
-
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(address).then(done, function () {
-          copyBtn.textContent = 'Press ⌘C';
-        });
+      if (navigator.clipboard && window.isSecureContext && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(address).then(function () {
+          feedback('Copied', 'Email address copied to clipboard.');
+        }, selectAddress);
       } else {
-        copyBtn.textContent = 'Press ⌘C';
+        selectAddress();
       }
     });
   }
