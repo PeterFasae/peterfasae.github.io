@@ -87,44 +87,9 @@
     });
   }
 
-  /* ---- Reveal on scroll ---------------------------------------------------
-     Deliberately small in scope: the work items and the pulled statement,
-     not the whole page. The hidden state lives entirely under
-     .js-reveal-ready, added here in the same breath as the observer starting,
-     so nothing is ever hidden with no observer watching it — no-JS, no
-     IntersectionObserver, and reduced-motion all just see everything. */
-  var revealTargets = document.querySelectorAll('.reveal');
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (revealTargets.length && !reduceMotion && 'IntersectionObserver' in window) {
-    root.classList.add('js-reveal-ready');
-
-    var revealObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
-    );
-
-    Array.prototype.forEach.call(revealTargets, function (el, i) {
-      el.style.transitionDelay = (i % 3) * 70 + 'ms';
-      revealObserver.observe(el);
-    });
-
-    /* A backstop, not the mechanism. Real scrolling triggers the observer
-       well before this fires. This exists for anything that doesn't scroll
-       in a way the observer sees — a keyboard-only visitor tabbing past a
-       still-hidden link, an automated tool that captures the page without
-       scrolling through it — so nothing stays invisible indefinitely. */
-    window.setTimeout(function () {
-      revealObserver.disconnect();
-      root.classList.remove('js-reveal-ready');
-    }, 3000);
-  }
+  /* There used to be a reveal-on-scroll here. It hid the work for up to three
+     seconds from anyone who didn't scroll the way the observer expected, and a
+     recruiter skimming the page is exactly that person, so it went. */
 
   /* ---- Copy the address --------------------------------------------------- */
   var copyBtn = document.getElementById('copyBtn');
